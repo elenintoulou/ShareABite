@@ -21,20 +21,24 @@ public class User extends AbstractEntity {
     @Column(unique = true)
     private String uuid;
 
-    private String firstname;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    private String lastname;
+    @Column(nullable = false)
+    private String password;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String phoneNumber;
 
     //Relationships
     @Enumerated(EnumType.STRING)
+    //should i make it nullable=false??
     private Region region;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 //    Maybe add relationship with food request and requested items
 
