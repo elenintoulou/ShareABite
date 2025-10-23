@@ -1,4 +1,4 @@
-package gr.shareabite.app.model.repository;
+package gr.shareabite.app.repository;
 
 import gr.shareabite.app.model.User;
 import gr.shareabite.app.model.static_data.Region;
