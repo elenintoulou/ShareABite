@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Error</title>
+</head>
+<body>
+<h1>An Error Has Occurred</h1>
+<p><strong>Status:</strong> <span th:text="${status}"></span></p>
+<p><strong>Error:</strong> <span th:text="${error}"></span></p>
+<p><strong>Message:</strong> <span th:text="${message} ?: 'An unexpected error occurred.'"></span></p>
+<p><strong>Path:</strong> <span th:text="${path}"></span></p>
+<p><strong>Timestamp:</strong> <span th:text="${timestamp}"></span></p>
+</body>
+</html>
