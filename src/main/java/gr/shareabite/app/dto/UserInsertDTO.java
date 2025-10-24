@@ -1,5 +1,6 @@
 package gr.shareabite.app.dto;
 
+import gr.shareabite.app.model.static_data.Region;
 import gr.shareabite.app.model.static_data.Role;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -25,6 +26,19 @@ public class UserInsertDTO {
                     "1 number and 1 symbol without spaces. ")
     private String password;
 
+    @NotNull(message = "The email cannot be null.")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",
+            message = "Invalid email address.")
+    private String email;
+
+    @Pattern(
+            regexp = "^(\\+\\d{1,3}[- ]?)?\\d{7,15}$",
+            message = "Invalid phone number.")
+    private String phoneNumber;
+
     @NotNull(message = "The role cannot be null.")
     private Role role;
+
+    @NotNull(message = "The region cannot be null.")
+    private Region region;
 }
