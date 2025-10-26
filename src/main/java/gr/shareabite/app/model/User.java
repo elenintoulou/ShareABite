@@ -1,7 +1,7 @@
 package gr.shareabite.app.model;
 
-import gr.shareabite.app.model.static_data.Region;
-import gr.shareabite.app.model.static_data.Role;
+import gr.shareabite.app.enums.Region;
+import gr.shareabite.app.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

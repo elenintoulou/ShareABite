@@ -1,8 +1,7 @@
 package gr.shareabite.app.dto;
 
-import gr.shareabite.app.model.static_data.Region;
-import gr.shareabite.app.model.static_data.Role;
-import jakarta.validation.constraints.NotNull;
+import gr.shareabite.app.enums.Region;
+import gr.shareabite.app.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

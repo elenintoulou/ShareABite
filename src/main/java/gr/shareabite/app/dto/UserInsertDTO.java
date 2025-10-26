@@ -1,7 +1,7 @@
 package gr.shareabite.app.dto;
 
-import gr.shareabite.app.model.static_data.Region;
-import gr.shareabite.app.model.static_data.Role;
+import gr.shareabite.app.enums.Region;
+import gr.shareabite.app.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
