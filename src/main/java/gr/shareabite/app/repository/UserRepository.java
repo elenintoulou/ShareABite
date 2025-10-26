@@ -1,14 +1,12 @@
 package gr.shareabite.app.repository;
 
 import gr.shareabite.app.model.User;
-import gr.shareabite.app.model.static_data.Region;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import gr.shareabite.app.enums.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
