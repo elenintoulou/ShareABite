@@ -1,4 +1,4 @@
-package gr.shareabite.app.model.static_data;
+package gr.shareabite.app.enums;
 
 public enum Status {
     OPEN,
