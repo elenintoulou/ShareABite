@@ -1,7 +1,7 @@
 package gr.shareabite.app.repository;
 
 import gr.shareabite.app.model.RequestedItem;
-import gr.shareabite.app.model.static_data.FoodItems;
+import gr.shareabite.app.enums.FoodItems;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

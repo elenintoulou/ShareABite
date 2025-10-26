@@ -1,14 +1,12 @@
 package gr.shareabite.app.repository;
 
 import gr.shareabite.app.model.FoodRequest;
-import gr.shareabite.app.model.User;
-import gr.shareabite.app.model.static_data.Region;
-import gr.shareabite.app.model.static_data.Status;
+import gr.shareabite.app.enums.Region;
+import gr.shareabite.app.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface FoodRequestRepository extends JpaRepository<FoodRequest, Long> {

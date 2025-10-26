@@ -1,6 +1,6 @@
 package gr.shareabite.app.model;
 
-import gr.shareabite.app.model.static_data.FoodItems;
+import gr.shareabite.app.enums.FoodItems;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
