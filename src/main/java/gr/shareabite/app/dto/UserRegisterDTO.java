@@ -1,6 +1,6 @@
 package gr.shareabite.app.dto;
 
-import gr.shareabite.app.model.static_data.Region;
+import gr.shareabite.app.enums.Region;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserSignUpDTO {
+public class UserRegisterDTO {
 
     @NotNull(message = "The username cannot not be null.")
     @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
