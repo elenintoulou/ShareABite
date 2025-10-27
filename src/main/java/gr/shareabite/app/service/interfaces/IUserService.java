@@ -10,5 +10,5 @@ public interface IUserService {
 
     void saveUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException;
     void registerUser(UserRegisterDTO userRegisterDTO) throws EntityAlreadyExistsException;
-    void editUser(UserEditDTO userEditDTO) throws NotExistingEntityException;
+    void editUser(UserEditDTO userEditDTO) throws NotExistingEntityException, EntityAlreadyExistsException;
 }
