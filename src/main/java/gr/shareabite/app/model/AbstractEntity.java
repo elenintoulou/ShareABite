@@ -20,10 +20,6 @@ import java.time.LocalDateTime;
 
 public abstract class AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @CreatedDate// it will automatically give the time stamp
     @Column(name = "created_at", nullable = false, updatable = false)
     // updatable = false it cannot be updated it is only created here
