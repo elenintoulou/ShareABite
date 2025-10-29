@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class UserReadOnlyDTO {
 
     private Long id;
-    private Long uuid;
+    private String uuid;
     private String username;
     private String email;
     private String phoneNumber;
