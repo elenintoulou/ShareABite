@@ -1,0 +1,43 @@
+/* index page */
+.carousel-caption {
+  color:whitesmoke;
+  /* centers the element vertically no matter the size of the screen! */
+  top: 60%;
+  transform: translateY(-60%);
+}
+
+#homeCarousel .carousel-item img {
+  height: 420px;
+  object-fit: cover;
+}
+
+/* to improve my text readability */
+#homeCarousel .carousel-item:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.25);
+}
+
+.body {
+  color: bisque;
+}
+
+/* about page */
+.about-page {
+  background-image: url("/images/photo4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-page .content-wrapper {
+  /* dark transparent container for readability */
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 53px;
+  border-radius: 26px;
+}
