@@ -3,8 +3,8 @@ package gr.shareabite.app.service.interfaces;
 import gr.shareabite.app.dto.UserEditDTO;
 import gr.shareabite.app.dto.UserInsertDTO;
 import gr.shareabite.app.dto.UserRegisterDTO;
-import gr.shareabite.app.exceptions.EntityAlreadyExistsException;
-import gr.shareabite.app.exceptions.NotExistingEntityException;
+import gr.shareabite.app.exception.EntityAlreadyExistsException;
+import gr.shareabite.app.exception.NotExistingEntityException;
 
 public interface IUserService {
 
