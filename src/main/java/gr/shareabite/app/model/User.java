@@ -3,10 +3,7 @@ package gr.shareabite.app.model;
 import gr.shareabite.app.enums.Region;
 import gr.shareabite.app.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -15,8 +12,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+//in order to make my constructors with the properties i want every time, without a specific order
+@Builder
 @Table(name = "users")
 public class User extends AbstractEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true)
     private String uuid;

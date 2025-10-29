@@ -20,6 +20,10 @@ import java.util.List;
 
 public class FoodRequest extends AbstractEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 

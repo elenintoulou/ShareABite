@@ -16,6 +16,11 @@ import lombok.Setter;
 
 //Represents the entity of a specific item
 public class RequestedItem extends AbstractEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private int quantity;
     private String unit;
 
