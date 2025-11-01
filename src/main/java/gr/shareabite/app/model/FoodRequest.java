@@ -31,6 +31,6 @@ public class FoodRequest extends AbstractEntity {
     private Region region;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false) // όνομα στήλης που θα υπάρχει στον πίνακα food_request
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
