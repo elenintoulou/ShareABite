@@ -35,53 +35,46 @@ public class UserServiceImpl implements IUserService {
     //if any exception happens, the transaction is canceled
     @Transactional(rollbackOn = Exception.class)
     public void registerUser(UserRegisterDTO userRegisterDTO) throws EntityAlreadyExistsException{
-            if (userRepository.existsByUsername(userRegisterDTO.getUsername())||
-                    userRepository.existsByEmail(userRegisterDTO.getEmail())) {
-                throw new EntityAlreadyExistsException("User", "User with username: " + userRegisterDTO.getUsername() +
-                        " and email: " + userRegisterDTO.getEmail() + " already exists.");
+
+        String username = userRegisterDTO.getUsername().trim();
+        String email = userRegisterDTO.getEmail().trim().toLowerCase();
+
+            if (userRepository.existsByUsername(username)||
+                    userRepository.existsByEmail(email)) {
+                throw new EntityAlreadyExistsException("User", "User with username: " + username +
+                        " and email: " + email + " already exists.");
             }
 
             User user = mapper.mapToEntity(userRegisterDTO);
+            user.setUsername(username);
+            user.setEmail(email);
             user.setRole(Role.USER);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Αποθήκευση στη βάση
             userRepository.save(user);
-            log.info("User with username={} and email={} has registered successfully.", userRegisterDTO.getUsername(),
-                userRegisterDTO.getEmail());
+            log.info("User with username={} and email={} has registered successfully.", username, email);
     }
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public void editUser(UserEditDTO userEditDTO) throws NotExistingEntityException, EntityAlreadyExistsException {
-            if (!userRepository.existsByUsername(userEditDTO.getUsername())) {
-                throw new NotExistingEntityException("User", "User with username: " + userEditDTO.getUsername()
-                               + " does not exist.");
-            }
-            if(!userRepository.existsByEmail(userEditDTO.getEmail())) {
-                throw new NotExistingEntityException("User", "User with email: " + userEditDTO.getEmail()
-                        + " does not exists");
-            }
-            if (userRepository.findByUsername.equals(userEditDTO.getUsername())) {
-                throw new EntityAlreadyExistsException("User", "User with username: " + userEditDTO.getUsername()
-                        + " already has that username.");
-            }
-            if(userRepository.existsByEmail(userEditDTO.getEmail())) {
-                throw new EntityAlreadyExistsException("User", "User with email: " + userEditDTO.getEmail()
-                     + " already has that email");
-            }
+    public void editUser(UserEditDTO userEditDTO)
+            throws NotExistingEntityException, EntityAlreadyExistsException {
 
-            User user = mapper.applyEdits(user, userEditDTO);
+        User user = userRepository.findByUsername(userEditDTO.getUsername())
+                .orElseThrow(() -> new NotExistingEntityException(
+                        "User", "User with username: " + userEditDTO.getUsername() + " does not exist."));
 
-//            //check if email doesn't belong to someone else
-//            var owner = userRepository.findByEmail(userEditDTO.getEmail());
-//            if (owner.isPresent() && !owner.get().getUsername().equals(userEditDTO.getUsername())) {
-//                throw new EntityAlreadyExistsException("User", "User with username: " +userEditDTO.getUsername()
-//                        + " and email: " +userEditDTO.getEmail() + " already exists.");
-//            }
+        if (userEditDTO.getEmail() != null && !userEditDTO.getEmail().isBlank()) {
+            var owner = userRepository.findByEmail(userEditDTO.getEmail().trim().toLowerCase());
+            if (owner.isPresent() && !owner.get().getUsername().equals(userEditDTO.getUsername())) {
+                throw new EntityAlreadyExistsException("User", "Email already in use by another account.");
+            }
+        }
 
-//            userRepository.save(userRepository.findByUsername(userEditDTO.getUsername()).);
-            log.info("User with username={} has updated successfully.", userEditDTO.getUsername());
+        mapper.applyEdits(user, userEditDTO);
+        userRepository.save(user);
+        log.info("User with username={} updated successfully.", userEditDTO.getUsername());
     }
 
     @Override
@@ -92,7 +85,10 @@ public class UserServiceImpl implements IUserService {
                 throw new EntityAlreadyExistsException("User", "User with username: " +userInsertDTO.getUsername()
                         + " and email: " + userInsertDTO.getEmail() + " Already exists.");
             }
-            userRepository.save(new User());
+            User user = mapper.mapToEntity(userInsertDTO);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            userRepository.save(user);
             log.info("User with username={} and email={} has been saved successfully.", userInsertDTO.getUsername(), userInsertDTO.getEmail());
     }
 
