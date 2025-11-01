@@ -1,5 +1,6 @@
 package gr.shareabite.app.service.interfaces;
 
+import gr.shareabite.app.dto.PasswordChangeDTO;
 import gr.shareabite.app.dto.UserEditDTO;
 import gr.shareabite.app.dto.UserInsertDTO;
 import gr.shareabite.app.dto.UserRegisterDTO;
@@ -11,4 +12,5 @@ public interface IUserService {
     void saveUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException;
     void registerUser(UserRegisterDTO userRegisterDTO) throws EntityAlreadyExistsException;
     void editUser(UserEditDTO userEditDTO) throws NotExistingEntityException, EntityAlreadyExistsException;
+    void changePassword(Long userId, PasswordChangeDTO passwordChangeDTO) throws NotExistingEntityException;
 }
