@@ -1,7 +1,6 @@
 package gr.shareabite.app.dto;
 
 import gr.shareabite.app.enums.Region;
-import gr.shareabite.app.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,14 +17,6 @@ public class UserEditDTO {
 
     @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
     private String username;
-
-    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])^.{8,}$",
-            message = "The password must have at least 1 small character, 1 capital character, " +
-                    "1 number and 1 symbol without spaces. ")
-    private String password;
-
-    @NotNull(message = "The role cannot be null.")
-    private Role role;
 
     @NotNull(message = "The region cannot be null.")
     private Region region;
