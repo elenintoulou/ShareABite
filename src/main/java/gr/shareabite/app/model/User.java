@@ -45,13 +45,6 @@ public class User extends AbstractEntity {
     private Role role;
 //    Maybe add relationship with food request and requested items
 
-    //add methods in my entity?
-//
-//    public void addUser(User user) {
-//        if(users == null) users = new HashSet<>();
-//        users.add(user);
-//        user.get
-//    }
 
     //method to create the uuid
     @PrePersist

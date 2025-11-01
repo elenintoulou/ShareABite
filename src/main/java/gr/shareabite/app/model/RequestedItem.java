@@ -21,7 +21,9 @@ public class RequestedItem extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private int quantity;
+    @Column(nullable = false)
     private String unit;
 
     //connecting with enums
