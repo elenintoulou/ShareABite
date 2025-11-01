@@ -5,6 +5,8 @@ import gr.shareabite.app.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -45,6 +47,8 @@ public class User extends AbstractEntity {
     private Role role;
 //    Maybe add relationship with food request and requested items
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FoodRequest> foodRequests = new ArrayList<>();
 
     //method to create the uuid
     @PrePersist

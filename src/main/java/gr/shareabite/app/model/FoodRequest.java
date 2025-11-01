@@ -30,6 +30,7 @@ public class FoodRequest extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Region region;
 
-    @OneToMany(mappedBy = "foodRequest", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RequestedItem> requestedItems = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false) // όνομα στήλης που θα υπάρχει στον πίνακα food_request
+    private User user;
 }
