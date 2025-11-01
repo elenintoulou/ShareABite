@@ -15,6 +15,7 @@ import lombok.Setter;
 @Setter
 public class UserEditDTO {
 
+    @NotNull(message = "The username cannot be null.")
     @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
     private String username;
 
