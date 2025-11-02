@@ -18,14 +18,14 @@
  <th:block th:replace="fragments/header :: header"></th:block>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <form th:action="@{/user/register}" th:object="${user}" method="post">
+    <form th:action="@{/user/register}" th:object="${userRegisterDTO}" method="post">
         <div class="container d-flex justify-content-center mb-3">
             <h4 class="text-center" style="max-width: 280px;">Sign up to be part of our community</h4>
         </div>
 
         <!-- GLOBAL ERRORS is for errors that do not belong to a single field, even if it is in a valid format
-        i will get my error because it also searches in my db and my service logic!!!! not only the bean validation
-        annotations and my controllers as the field errors!-->
+        i will get my error because it checks my controllers binding results!!!! not only the bean validation
+        annotations as the for example th:errors="*{username}"-->
         <div th:if="${#fields.hasGlobalErrors().size() > 0}" class="alert alert-danger">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
         </div>
