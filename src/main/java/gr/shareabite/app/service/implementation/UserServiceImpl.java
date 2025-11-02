@@ -39,10 +39,12 @@ public class UserServiceImpl implements IUserService {
         String username = userRegisterDTO.getUsername().trim();
         String email = userRegisterDTO.getEmail().trim().toLowerCase();
 
-            if (userRepository.existsByUsername(username)||
-                    userRepository.existsByEmail(email)) {
+            if (userRepository.existsByUsername(username)) {
                 throw new EntityAlreadyExistsException("User", "User with username: " + username +
-                        " and email: " + email + " already exists.");
+                         " already exists.");
+            }
+            if (userRepository.existsByEmail(email)) {
+                 throw new EntityAlreadyExistsException("User", "User with email: " + email + " already exists.");
             }
 
             User user = mapper.mapToEntity(userRegisterDTO);
