@@ -2,6 +2,8 @@ package gr.shareabite.app.controller;
 
 import gr.shareabite.app.dto.UserRegisterDTO;
 import gr.shareabite.app.exception.EntityAlreadyExistsException;
+import gr.shareabite.app.mapper.Mapper;
+import gr.shareabite.app.model.User;
 import gr.shareabite.app.service.implementation.UserServiceImpl;
 import gr.shareabite.app.service.interfaces.IUserService;
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user")
@@ -21,17 +24,24 @@ public class UserController {
 
     //Dependency injection the Interface and not the implementation!!!!
     private final IUserService iUserService;
+    private final Mapper mapper;
 
+    // με το model (ένα έτοιμο interface του Spring που χρησιμοποιεί ένα Map για να ορίζει key, value pairs)
+    // μεταφέρουμε data από τον Controller στη σελίδα
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        model.addAttribute("user", new UserRegisterDTO());
+        model.addAttribute("userRegisterDTO", new UserRegisterDTO());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserRegisterDTO userRegisterDTO,
-                               BindingResult bindingResult) {
+    public String registerUser(@Valid @ModelAttribute("userRegisterDTO") UserRegisterDTO userRegisterDTO,
+                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+        //!!!!!ADD METHOD TO SAVE THE USER!!!!!!!!!!
+        User savedUser;
+
+        //ADD VALIDATION AND VALIDATOR
         if (bindingResult.hasErrors()) {
             return "register";
         }
@@ -50,6 +60,9 @@ public class UserController {
 
             return "register";
         }
+
+        redirectAttributes.addFlashAttribute("success", "Your account has been created." +
+                " Please log in.");
 
         return "redirect:/login";
     }
