@@ -12,10 +12,10 @@ public class Mapper {
 
     public User mapToEntity(UserInsertDTO userInsertDTO) {
         return User.builder()
-                .username(userInsertDTO.getUsername().trim())
+                .username(userInsertDTO.getUsername())
                 .password(userInsertDTO.getPassword())
-                .email(userInsertDTO.getEmail().trim().toLowerCase())
-                .phoneNumber(userInsertDTO.getPhoneNumber() == null ? null : userInsertDTO.getPhoneNumber().trim())
+                .email(userInsertDTO.getEmail())
+                .phoneNumber(userInsertDTO.getPhoneNumber())
                 .region(userInsertDTO.getRegion())
                 .role(userInsertDTO.getRole())
                 .build();
@@ -31,9 +31,10 @@ public class Mapper {
                 , user.getPhoneNumber());
     }
 
+    //!!!!!!!!!!!!μηπωσ να το σβησω απο εδω γτ εχει λιγη λογικη μεσα? και να το παω στο service?!!!!!!
     public void applyEdits(User user, UserEditDTO userEditDTO) {
         if (userEditDTO.getEmail() != null && !userEditDTO.getEmail().isBlank()) {
-            user.setEmail(userEditDTO.getEmail().trim().toLowerCase());
+            user.setEmail(userEditDTO.getEmail());
         }
         if (userEditDTO.getPhoneNumber() != null && !userEditDTO.getPhoneNumber().isBlank()) {
             user.setPhoneNumber(userEditDTO.getPhoneNumber().trim());
@@ -48,15 +49,15 @@ public class Mapper {
     //to create a new User from the dto
     public User mapToEntity(UserRegisterDTO userRegisterDTO) {
         return User.builder()
-                .username(userRegisterDTO.getUsername().trim())
+                .username(userRegisterDTO.getUsername())
                 .password(userRegisterDTO.getPassword())
-                .email(userRegisterDTO.getEmail().trim().toLowerCase())
+                .email(userRegisterDTO.getEmail())
                 .region(userRegisterDTO.getRegion())
                 .build();
     }
     //to "update" my existing user with the dto data!!!!
     public void applyRegistration(User user, UserRegisterDTO userRegisterDTO) {
-        user.setEmail(userRegisterDTO.getEmail().trim().toLowerCase());
+        user.setEmail(userRegisterDTO.getEmail());
         user.setRegion(userRegisterDTO.getRegion());
     }
 }
