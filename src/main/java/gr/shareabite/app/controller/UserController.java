@@ -61,9 +61,15 @@ public class UserController {
             return "register";
         }
 
+        //success flash message!
         redirectAttributes.addFlashAttribute("success", "Your account has been created." +
                 " Please log in.");
 
-        return "redirect:/login";
+        return "redirect:/user/login";
+    }
+
+    @GetMapping("/login")
+    public String showLogedIn() {
+        return "login";
     }
 }
