@@ -2,9 +2,6 @@ package gr.shareabite.app.controller;
 
 import gr.shareabite.app.dto.UserRegisterDTO;
 import gr.shareabite.app.exception.EntityAlreadyExistsException;
-import gr.shareabite.app.mapper.Mapper;
-import gr.shareabite.app.model.User;
-import gr.shareabite.app.service.implementation.UserServiceImpl;
 import gr.shareabite.app.service.interfaces.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +21,6 @@ public class UserController {
 
     //Dependency injection the Interface and not the implementation!!!!
     private final IUserService iUserService;
-    private final Mapper mapper;
 
     // με το model (ένα έτοιμο interface του Spring που χρησιμοποιεί ένα Map για να ορίζει key, value pairs)
     // μεταφέρουμε data από τον Controller στη σελίδα
@@ -38,8 +34,8 @@ public class UserController {
     public String registerUser(@Valid @ModelAttribute("userRegisterDTO") UserRegisterDTO userRegisterDTO,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        //!!!!!ADD METHOD TO SAVE THE USER!!!!!!!!!!
-        User savedUser;
+        //!!!!!ADD METHOD TO SAVE THE USER!!!!!!!!!!???
+        //User savedUser;
 
         //ADD VALIDATION AND VALIDATOR
         if (bindingResult.hasErrors()) {
@@ -69,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLogedIn() {
+    public String showLogin() {
         return "login";
     }
 }
