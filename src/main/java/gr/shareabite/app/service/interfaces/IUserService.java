@@ -1,11 +1,9 @@
 package gr.shareabite.app.service.interfaces;
 
-import gr.shareabite.app.dto.PasswordChangeDTO;
-import gr.shareabite.app.dto.UserEditDTO;
-import gr.shareabite.app.dto.UserInsertDTO;
-import gr.shareabite.app.dto.UserRegisterDTO;
+import gr.shareabite.app.dto.*;
 import gr.shareabite.app.exception.EntityAlreadyExistsException;
 import gr.shareabite.app.exception.NotExistingEntityException;
+import org.springframework.data.domain.Page;
 
 public interface IUserService {
 
@@ -13,4 +11,5 @@ public interface IUserService {
     void registerUser(UserRegisterDTO userRegisterDTO) throws EntityAlreadyExistsException;
     void editUser(UserEditDTO userEditDTO) throws NotExistingEntityException, EntityAlreadyExistsException;
     void changePassword(Long userId, PasswordChangeDTO passwordChangeDTO) throws NotExistingEntityException;
+    Page<UserReadOnlyDTO> getPaginatedUsers(int page, int size);
 }
