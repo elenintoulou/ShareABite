@@ -24,9 +24,10 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/user/login")            // we show our login page
-                        .defaultSuccessUrl("/", true)   // where user goes after login
-                        .failureUrl("/user/login?error")     // error message when login fails
+                        .loginPage("/user/login")          // GET page you serve
+                        .loginProcessingUrl("/user/login") // ✅ Spring will handle POST here
+                        .defaultSuccessUrl("/", true)      // always go to /
+                        .failureUrl("/user/login?error")
                         .permitAll()
                 )
                 .logout(logout -> logout
