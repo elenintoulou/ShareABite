@@ -1,9 +1,6 @@
 package gr.shareabite.app.service.implementation;
 
-import gr.shareabite.app.dto.PasswordChangeDTO;
-import gr.shareabite.app.dto.UserEditDTO;
-import gr.shareabite.app.dto.UserInsertDTO;
-import gr.shareabite.app.dto.UserRegisterDTO;
+import gr.shareabite.app.dto.*;
 import gr.shareabite.app.enums.Role;
 import gr.shareabite.app.exception.EntityAlreadyExistsException;
 import gr.shareabite.app.exception.NotExistingEntityException;
@@ -14,6 +11,7 @@ import gr.shareabite.app.service.interfaces.IUserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -117,5 +115,10 @@ public class UserServiceImpl implements IUserService {
 
         // 4) Save updates
         userRepository.save(user);
+    }
+
+    @Override
+    public Page<UserReadOnlyDTO> getPaginatedUsers(int page, int size) {
+        return null;
     }
 }
