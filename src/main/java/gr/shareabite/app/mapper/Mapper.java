@@ -27,8 +27,7 @@ public class Mapper {
     }
 
     public UserEditDTO mapToUserEditDTO(User user) {
-        return new UserEditDTO(user.getUsername(), user.getRegion(), user.getEmail()
-                , user.getPhoneNumber());
+        return new UserEditDTO(user.getRegion(), user.getEmail());
     }
 
     //!!!!!!!!!!!!μηπωσ να το σβησω απο εδω γτ εχει λιγη λογικη μεσα? και να το παω στο service?!!!!!!
@@ -36,14 +35,10 @@ public class Mapper {
         if (userEditDTO.getEmail() != null && !userEditDTO.getEmail().isBlank()) {
             user.setEmail(userEditDTO.getEmail());
         }
-        if (userEditDTO.getPhoneNumber() != null && !userEditDTO.getPhoneNumber().isBlank()) {
-            user.setPhoneNumber(userEditDTO.getPhoneNumber().trim());
-        }
 
         if (userEditDTO.getRegion() != null) {
             user.setRegion(userEditDTO.getRegion());
         }
-
     }
 
     //to create a new User from the dto
