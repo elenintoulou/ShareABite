@@ -5,6 +5,7 @@ import gr.shareabite.app.exception.EntityAlreadyExistsException;
 import gr.shareabite.app.service.interfaces.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     //Dependency injection the Interface and not the implementation!!!!
@@ -34,10 +36,7 @@ public class UserController {
     public String registerUser(@Valid @ModelAttribute("userRegisterDTO") UserRegisterDTO userRegisterDTO,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        //!!!!!ADD METHOD TO SAVE THE USER!!!!!!!!!!???
-        //User savedUser;
-
-        //ADD VALIDATION AND VALIDATOR
+        //ADD VALIDATION AND VALIDATOR???
         if (bindingResult.hasErrors()) {
             return "register";
         }
