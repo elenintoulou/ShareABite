@@ -1,9 +1,8 @@
 package gr.shareabite.app.dto;
 
-import gr.shareabite.app.enums.Region;
+import gr.shareabite.app.core.enums.Region;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,11 @@ public class UserEditDTO {
 //    @NotNull(message = "The username cannot be null.")
 //    @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
 //    private String username;
+
+    @Pattern(
+            regexp = "^(\\+\\d{1,3}[- ]?)?\\d{7,15}$",
+            message = "Invalid phone number.")
+    private String phoneNumber;
 
     @NotNull(message = "The region cannot be null.")
     private Region region;
