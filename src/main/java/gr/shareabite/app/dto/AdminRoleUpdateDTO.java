@@ -1,6 +1,6 @@
 package gr.shareabite.app.dto;
 
-import gr.shareabite.app.enums.Role;
+import gr.shareabite.app.core.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
