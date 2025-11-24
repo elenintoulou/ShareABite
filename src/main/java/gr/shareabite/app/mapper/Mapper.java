@@ -30,14 +30,16 @@ public class Mapper {
         return new UserEditDTO(user.getPhoneNumber(), user.getRegion(), user.getEmail());
     }
 
-    //!!!!!!!!!!!!μηπωσ να το σβησω απο εδω γτ εχει λιγη λογικη μεσα? και να το παω στο service?!!!!!!
     public void applyEdits(User user, UserEditDTO userEditDTO) {
+
         if (userEditDTO.getEmail() != null && !userEditDTO.getEmail().isBlank()) {
             user.setEmail(userEditDTO.getEmail());
         }
-
         if (userEditDTO.getRegion() != null) {
             user.setRegion(userEditDTO.getRegion());
+        }
+        if (userEditDTO.getPhoneNumber() != null && !userEditDTO.getPhoneNumber().isBlank()) {
+            user.setPhoneNumber(userEditDTO.getPhoneNumber());
         }
     }
 
