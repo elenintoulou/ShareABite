@@ -27,7 +27,7 @@ public class Mapper {
     }
 
     public UserEditDTO mapToUserEditDTO(User user) {
-        return new UserEditDTO(user.getRegion(), user.getEmail());
+        return new UserEditDTO(user.getPhoneNumber(), user.getRegion(), user.getEmail());
     }
 
     //!!!!!!!!!!!!μηπωσ να το σβησω απο εδω γτ εχει λιγη λογικη μεσα? και να το παω στο service?!!!!!!
