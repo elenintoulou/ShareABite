@@ -1,6 +1,7 @@
 package gr.shareabite.app.dto;
 
 import gr.shareabite.app.core.enums.Region;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class UserEditDTO {
     private Region region;
 
     @NotNull(message = "The email cannot be null.")
+    @NotBlank(message = "The email cannot not be blank.")
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",
             message = "Invalid email address.")
     private String email;

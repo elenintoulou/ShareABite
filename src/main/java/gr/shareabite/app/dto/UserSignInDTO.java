@@ -1,5 +1,6 @@
 package gr.shareabite.app.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -15,6 +16,7 @@ import lombok.Setter;
 public class UserSignInDTO {
 
     @NotNull(message = "The username cannot not be null.")
+    @NotBlank(message = "The username cannot not be blank.")
     @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
     private String username;
 

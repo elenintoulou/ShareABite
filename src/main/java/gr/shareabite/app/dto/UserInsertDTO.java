@@ -2,6 +2,7 @@ package gr.shareabite.app.dto;
 
 import gr.shareabite.app.core.enums.Region;
 import gr.shareabite.app.core.enums.Role;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -17,6 +18,7 @@ import lombok.Setter;
 public class UserInsertDTO {
 
     @NotNull(message = "The username cannot not be null.")
+    @NotBlank(message = "The username cannot not be blank.")
     @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
     private String username;
 
@@ -27,6 +29,7 @@ public class UserInsertDTO {
     private String password;
 
     @NotNull(message = "The email cannot be null.")
+    @NotBlank(message = "The email cannot not be blank.")
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",
             message = "Invalid email address.")
     private String email;
