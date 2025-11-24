@@ -1,7 +1,9 @@
 package gr.shareabite.app.controller;
 
+import gr.shareabite.app.dto.UserEditDTO;
 import gr.shareabite.app.dto.UserRegisterDTO;
-import gr.shareabite.app.exception.EntityAlreadyExistsException;
+import gr.shareabite.app.dto.UserSignInDTO;
+import gr.shareabite.app.core.exception.EntityAlreadyExistsException;
 import gr.shareabite.app.service.interfaces.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +66,25 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLogin() {
+    public String showLogin(Model model) {
+        model.addAttribute("userSignInDTO", new UserSignInDTO());
         return "login";
     }
-}
+
+    @GetMapping("/{uuid}/edit")
+    public String showEditForm() {
+        return "edit";
+    }
+
+//    @PostMapping("/{uuid}/edit")
+//    public String editUser(@Valid @ModelAttribute("userEditDTO")UserEditDTO userEditDTO,
+//                           BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+//        if (bindingResult.hasErrors()) {
+//            return "{uuid}/edit";
+//        }
+
+    @GetMapping("/logout")
+    public String logoutView() {
+        return "logout";
+    }
+    }
