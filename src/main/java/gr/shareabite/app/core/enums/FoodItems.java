@@ -1,4 +1,4 @@
-package gr.shareabite.app.enums;
+package gr.shareabite.app.core.enums;
 
 public enum FoodItems {
     RICE,

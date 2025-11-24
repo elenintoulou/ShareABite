@@ -1,15 +1,12 @@
 package gr.shareabite.app.model;
 
-import gr.shareabite.app.enums.Region;
-import gr.shareabite.app.enums.Status;
+import gr.shareabite.app.core.enums.Region;
+import gr.shareabite.app.core.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
