@@ -1,9 +1,9 @@
 package gr.shareabite.app.service.implementation;
 
 import gr.shareabite.app.dto.*;
-import gr.shareabite.app.enums.Role;
-import gr.shareabite.app.exception.EntityAlreadyExistsException;
-import gr.shareabite.app.exception.NotExistingEntityException;
+import gr.shareabite.app.core.enums.Role;
+import gr.shareabite.app.core.exception.EntityAlreadyExistsException;
+import gr.shareabite.app.core.exception.NotExistingEntityException;
 import gr.shareabite.app.mapper.Mapper;
 import gr.shareabite.app.model.User;
 import gr.shareabite.app.repository.UserRepository;
@@ -26,11 +26,13 @@ public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
     private final Mapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final
     //private final RoleRepository roleRepository;
-
     //override my interfaces!!!!!
     @Override
     //if any exception happens, the transaction is canceled
+
+    //!!!!!ADD TRY CATCHES!!!!!AND NOT FORGET TO ADD IN THE CATCH THROW e!!!!!!!!
     @Transactional(rollbackOn = Exception.class)
     public void registerUser(UserRegisterDTO userRegisterDTO) throws EntityAlreadyExistsException{
 
@@ -58,23 +60,33 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public void editUser(UserEditDTO userEditDTO)
+    public void editUser(String userUuid, UserEditDTO userEditDTO)
             throws NotExistingEntityException, EntityAlreadyExistsException {
 
-        User user = userRepository.findByUsername(userEditDTO.getUsername())
-                .orElseThrow(() -> new NotExistingEntityException(
-                        "User", "User with username: " + userEditDTO.getUsername() + " does not exist."));
 
-        if (userEditDTO.getEmail() != null && !userEditDTO.getEmail().isBlank()) {
-            var owner = userRepository.findByEmail(userEditDTO.getEmail().trim().toLowerCase());
-            if (owner.isPresent() && !owner.get().getUsername().equals(userEditDTO.getUsername())) {
-                throw new EntityAlreadyExistsException("User", "Email already in use by another account.");
-            }
+        User user = userRepository.findByUuid(userUuid)
+                .orElseThrow(() -> new NotExistingEntityException("User", "Not found"));
+
+        String newEmail = (userEditDTO.getEmail() == null) ? null
+                : userEditDTO.getEmail().trim().toLowerCase();
+
+        if (newEmail != null && !newEmail.equals(user.getEmail())) {
+            boolean taken = userRepository.existsByEmailIgnoreCaseAndIdNot(newEmail, user.getId());
+            if (taken) throw new EntityAlreadyExistsException("User", "Email already in use");
+            user.setEmail(newEmail);
         }
+
+        // username uniqueness (if editable)
+        if (userEditDTO.getUsername() != null && !userEditDTO.getUsername().equals(user.getUsername())) {
+            boolean taken = userRepository.existsByUsernameAndIdNot(userEditDTO.getUsername(), user.getId());
+            if (taken) throw new EntityAlreadyExistsException("User", "Username already in use");
+            user.setUsername(userEditDTO.getUsername());
+        }
+
 
         mapper.applyEdits(user, userEditDTO);
         userRepository.save(user);
-        log.info("User with username={} updated successfully.", userEditDTO.getUsername());
+        log.info("User with email={} updated successfully.", userEditDTO.getEmail());
     }
 
     @Override
