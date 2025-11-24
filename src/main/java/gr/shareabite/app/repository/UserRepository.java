@@ -1,7 +1,8 @@
 package gr.shareabite.app.repository;
 
+import gr.shareabite.app.core.enums.Role;
 import gr.shareabite.app.model.User;
-import gr.shareabite.app.enums.Region;
+import gr.shareabite.app.core.enums.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
     Page<User> findByRegion(Region region, Pageable pageable);
     Optional<User> findByUsername(String username);
+    Optional<User> findByRole(Role role);
 }
