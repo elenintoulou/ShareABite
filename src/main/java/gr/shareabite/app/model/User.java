@@ -1,7 +1,7 @@
 package gr.shareabite.app.model;
 
-import gr.shareabite.app.enums.Region;
-import gr.shareabite.app.enums.Role;
+import gr.shareabite.app.core.enums.Region;
+import gr.shareabite.app.core.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
