@@ -1,4 +1,4 @@
-package gr.shareabite.app.exception;
+package gr.shareabite.app.core.exception;
 
 
 public class EntityAlreadyExistsException extends Exception {
