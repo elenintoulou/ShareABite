@@ -83,8 +83,8 @@ public class UserController {
 //            return "{uuid}/edit";
 //        }
 
-    @GetMapping("/logout")
+    @GetMapping("/logoutsuccess")
     public String logoutView() {
-        return "logout";
+        return "logoutsuccess";
     }
     }
