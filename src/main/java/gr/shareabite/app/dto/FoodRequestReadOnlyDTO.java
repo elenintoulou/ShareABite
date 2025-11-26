@@ -2,13 +2,13 @@ package gr.shareabite.app.dto;
 
 import gr.shareabite.app.core.enums.Region;
 import gr.shareabite.app.core.enums.Status;
-import gr.shareabite.app.model.User;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +19,7 @@ public class FoodRequestReadOnlyDTO {
     private Long id;
     private Status status;
     private Region region;
-    private User user;
-    private CreatedDate createdDate;
+    private String username;
+    private LocalDateTime createdAt;
+    private List<RequestedItemsReadOnlyDTO> requestedItems;
 }
