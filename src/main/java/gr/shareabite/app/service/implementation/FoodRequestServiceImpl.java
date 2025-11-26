@@ -3,6 +3,9 @@ package gr.shareabite.app.service.implementation;
 import gr.shareabite.app.core.enums.Status;
 import gr.shareabite.app.dto.FoodRequestCreateDTO;
 import gr.shareabite.app.dto.FoodRequestReadOnlyDTO;
+import gr.shareabite.app.mapper.FoodRequestMapper;
+import gr.shareabite.app.repository.FoodRequestRepository;
+import gr.shareabite.app.repository.UserRepository;
 import gr.shareabite.app.service.interfaces.IFoodRequestService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class FoodRequestImpl implements IFoodRequestService {
+public class FoodRequestServiceImpl implements IFoodRequestService {
+
+    private final FoodRequestRepository foodRequestRepository;
+    private final FoodRequestMapper foodRequestMapper;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional(rollbackOn = Exception.class)
