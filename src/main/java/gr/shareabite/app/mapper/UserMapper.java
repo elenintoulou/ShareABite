@@ -8,7 +8,7 @@ import gr.shareabite.app.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper {
+public class UserMapper {
 
     public User mapToEntity(UserInsertDTO userInsertDTO) {
         return User.builder()
