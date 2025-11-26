@@ -2,16 +2,14 @@ package gr.shareabite.app.model;
 
 import gr.shareabite.app.core.enums.FoodItems;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "requested_items")
 
 //Represents the entity of a specific item
@@ -23,6 +21,7 @@ public class RequestedItem extends AbstractEntity {
 
     @Column(nullable = false)
     private int quantity;
+
     @Column(nullable = false)
     private String unit;
 
@@ -33,4 +32,5 @@ public class RequestedItem extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "food_request_id")
     private FoodRequest foodRequest;
+
 }
