@@ -74,8 +74,9 @@ public class UserController {
 
     @GetMapping("/profile/edit")
     public String showEditForm(Model model) {
-        UserEditDTO dto = iUserService.getCurrentUserForEdit();
-        model.addAttribute("userEditDTO", dto);
+        UserEditDTO userEditDTO = iUserService.getCurrentUserForEdit();
+        model.addAttribute("userEditDTO", userEditDTO);
+        model.addAttribute("regions", Region.values());
         return "editform";
     }
 
