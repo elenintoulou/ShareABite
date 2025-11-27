@@ -1,5 +1,6 @@
 package gr.shareabite.app.controller;
 
+import gr.shareabite.app.core.enums.Region;
 import gr.shareabite.app.dto.UserEditDTO;
 import gr.shareabite.app.dto.UserRegisterDTO;
 import gr.shareabite.app.dto.UserSignInDTO;
@@ -71,20 +72,42 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/{uuid}/edit")
-    public String showEditForm() {
-        return "edit";
+    @GetMapping("/profile/edit")
+    public String showEditForm(Model model) {
+        UserEditDTO dto = iUserService.getCurrentUserForEdit();
+        model.addAttribute("userEditDTO", dto);
+        return "editform";
     }
 
-//    @PostMapping("/{uuid}/edit")
-//    public String editUser(@Valid @ModelAttribute("userEditDTO")UserEditDTO userEditDTO,
-//                           BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            return "{uuid}/edit";
-//        }
+    @PostMapping("/profile/edit")
+    public String editUser(@Valid @ModelAttribute("userEditDTO") UserEditDTO userEditDTO,
+                           BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("regions", Region.values());
+            return "editform";
+        }
+
+        try {
+            iUserService.updateCurrentUser(userEditDTO);
+        } catch (EntityAlreadyExistsException e) {
+            if (e.getMessage().contains("username")) {
+                bindingResult.rejectValue("username", null, "This username is already taken.");
+            } else if (e.getMessage().contains("email")) {
+                bindingResult.rejectValue("email", null, "This email is already registered.");
+            } else {
+                bindingResult.reject(null, e.getMessage());
+            }
+            model.addAttribute("regions", Region.values());
+            return "editform";
+        }
+
+        redirectAttributes.addFlashAttribute("success", "Your profile has been updated successfully.");
+        return "redirect:/user/profile/edit";
+    }
 
     @GetMapping("/logoutsuccess")
     public String logoutView() {
         return "logoutsuccess";
     }
-    }
+}
