@@ -4,6 +4,7 @@ import gr.shareabite.app.core.enums.Region;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,9 @@ import lombok.Setter;
 @Setter
 public class UserEditDTO {
 
-//    @NotNull(message = "The username cannot be null.")
-//    @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
-//    private String username;
+    @NotNull(message = "The username cannot be null.")
+    @Size(min = 2, max = 30, message = "The username must be between 2 - 30 characters.")
+    private String username;
 
     @Pattern(
             regexp = "^(\\+\\d{1,3}[- ]?)?\\d{7,15}$",
