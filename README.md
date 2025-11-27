@@ -13,16 +13,16 @@ The tecnologies i use are the following:
 ----------------------------------------
 Backend
 -------
-Java 17
-Spring Boot 3
-Spring MVC
-Spring Data JPA (Hibernate)
-Spring Securit
-MySQL
-Lombok
+Java 17,
+Spring Boot 3,
+Spring MVC,
+Spring Data JPA (Hibernate),
+Spring Security,
+MySQL,
+Lombok,
 ---------
 Frontend
 ---------
-Thymeleaf
-Bootstrap 5
+Thymeleaf,
+Bootstrap 5,
 HTML/CSS
