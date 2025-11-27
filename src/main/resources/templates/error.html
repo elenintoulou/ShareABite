@@ -1,15 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Error</title>
+  <title>Error - Share A Bite</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
 </head>
-<body>
-<h1>An Error Has Occurred</h1>
-<p><strong>Status:</strong> <span th:text="${status}"></span></p>
-<p><strong>Error:</strong> <span th:text="${error}"></span></p>
-<p><strong>Message:</strong> <span th:text="${message} ?: 'An unexpected error occurred.'"></span></p>
-<p><strong>Path:</strong> <span th:text="${path}"></span></p>
-<p><strong>Timestamp:</strong> <span th:text="${timestamp}"></span></p>
+
+<body style="background-color: #f8f9fa;">
+
+<!-- Header -->
+<th:block th:replace="~{fragments/header :: header}"></th:block>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4" style="max-width: 650px; width: 100%; border-radius: 12px;">
+
+    <!-- Error Icon -->
+    <div class="text-center mb-3">
+            <span class="material-symbols-outlined"
+                  style="font-size: 60px; color: #dc3545;">
+                error
+            </span>
+    </div>
+
+    <h3 class="text-center text-danger mb-3">An Error Has Occurred</h3>
+
+    <div class="mb-3">
+      <p><strong>Status:</strong> <span th:text="${status}"></span></p>
+      <p><strong>Error:</strong> <span th:text="${error}"></span></p>
+      <p><strong>Message:</strong>
+        <span th:text="${message} ?: 'An unexpected error occurred.'"></span>
+      </p>
+      <p><strong>Path:</strong> <span th:text="${path}"></span></p>
+      <p><strong>Timestamp:</strong> <span th:text="${timestamp}"></span></p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-center mt-4 gap-3">
+      <a href="/" class="btn btn-secondary">Go to Home</a>
+      <a href="javascript:history.back()" class="btn btn-danger">Go Back</a>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
