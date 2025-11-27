@@ -1,7 +1,9 @@
 package gr.shareabite.app.controller;
 
+import gr.shareabite.app.core.exception.NotExistingEntityException;
 import gr.shareabite.app.dto.FoodRequestCreateDTO;
 import gr.shareabite.app.dto.RequestedItemsCreateDTO;
+import gr.shareabite.app.service.interfaces.IFoodRequestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Slf4j
 @RequiredArgsConstructor
 
-public class RequestController {
+public class FoodRequestController {
+
+    private final IFoodRequestService iFoodRequestService;
+
     @GetMapping("/foodrequest/create")
     public String showFoodRequestForm(Model model) {
         FoodRequestCreateDTO foodRequestCreateDTO = new FoodRequestCreateDTO();
@@ -31,6 +36,28 @@ public class RequestController {
     @PostMapping("/foodrequest/create")
     public String foodRequestPost(@Valid @ModelAttribute("foodRequestCreateDTO") FoodRequestCreateDTO foodRequestCreateDTO,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "foodrequest";
+        }
+        try {
+            iFoodRequestService.saveFoodRequest(foodRequestCreateDTO);
+        } catch (NotExistingEntityException e) {
+            // User not found (should not happen normally)
+            bindingResult.reject(null, "Something went wrong. Please try again.");
+            return "foodrequest";
+        } catch (Exception e) {
+            // Any unexpected error
+            bindingResult.reject(null, "An unexpected error occurred.");
+            return "foodrequest";
+        }
 
+        // Success message
+        redirectAttributes.addFlashAttribute("success", "Your food request was created successfully!");
+        return "redirect:/success";
+    }
+
+    @GetMapping("/success")
+    public String showSuccessPage() {
+        return "success";
     }
 }
