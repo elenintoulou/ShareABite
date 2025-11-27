@@ -14,4 +14,5 @@ public interface IFoodRequestService {
     void updateFoodRequest(Long id, FoodRequestCreateDTO foodRequestCreateDTO);
     void deleteFoodRequest(Long id);
     void updateFoodRequestStatus(Long id, Status status);
+    Page<FoodRequestReadOnlyDTO> getPaginatedFoodRequestsForCurrentUser(int page, int size);
 }
