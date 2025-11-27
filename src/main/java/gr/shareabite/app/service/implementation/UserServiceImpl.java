@@ -4,16 +4,20 @@ import gr.shareabite.app.dto.*;
 import gr.shareabite.app.core.enums.Role;
 import gr.shareabite.app.core.exception.EntityAlreadyExistsException;
 import gr.shareabite.app.core.exception.NotExistingEntityException;
-import gr.shareabite.app.mapper.Mapper;
+import gr.shareabite.app.mapper.UserMapper;
 import gr.shareabite.app.model.User;
 import gr.shareabite.app.repository.UserRepository;
 import gr.shareabite.app.service.interfaces.IUserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -24,14 +28,14 @@ public class UserServiceImpl implements IUserService {
 
     //Dependency injection
     private final UserRepository userRepository;
-    private final Mapper mapper;
+    private final UserMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final
     //private final RoleRepository roleRepository;
     //override my interfaces!!!!!
+
     @Override
     //if any exception happens, the transaction is canceled
-
     //!!!!!ADD TRY CATCHES!!!!!AND NOT FORGET TO ADD IN THE CATCH THROW e!!!!!!!!
     @Transactional(rollbackOn = Exception.class)
     public void registerUser(UserRegisterDTO userRegisterDTO) throws EntityAlreadyExistsException{
@@ -58,36 +62,6 @@ public class UserServiceImpl implements IUserService {
             log.info("User with username={} and email={} has registered successfully.", username, email);
     }
 
-    @Override
-    @Transactional(rollbackOn = Exception.class)
-    public void editUser(String userUuid, UserEditDTO userEditDTO)
-            throws NotExistingEntityException, EntityAlreadyExistsException {
-
-
-        User user = userRepository.findByUuid(userUuid)
-                .orElseThrow(() -> new NotExistingEntityException("User", "Not found"));
-
-        String newEmail = (userEditDTO.getEmail() == null) ? null
-                : userEditDTO.getEmail().trim().toLowerCase();
-
-        if (newEmail != null && !newEmail.equals(user.getEmail())) {
-            boolean taken = userRepository.existsByEmailIgnoreCaseAndIdNot(newEmail, user.getId());
-            if (taken) throw new EntityAlreadyExistsException("User", "Email already in use");
-            user.setEmail(newEmail);
-        }
-
-        // username uniqueness (if editable)
-        if (userEditDTO.getUsername() != null && !userEditDTO.getUsername().equals(user.getUsername())) {
-            boolean taken = userRepository.existsByUsernameAndIdNot(userEditDTO.getUsername(), user.getId());
-            if (taken) throw new EntityAlreadyExistsException("User", "Username already in use");
-            user.setUsername(userEditDTO.getUsername());
-        }
-
-
-        mapper.applyEdits(user, userEditDTO);
-        userRepository.save(user);
-        log.info("User with email={} updated successfully.", userEditDTO.getEmail());
-    }
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -102,6 +76,48 @@ public class UserServiceImpl implements IUserService {
 
             userRepository.save(user);
             log.info("User with username={} and email={} has been saved successfully.", userInsertDTO.getUsername(), userInsertDTO.getEmail());
+    }
+
+    @Override
+    public UserEditDTO getCurrentUserForEdit() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("User not found: " + username));
+
+        UserEditDTO userEditDTO = new UserEditDTO();
+        userEditDTO.setUsername(user.getUsername());
+        userEditDTO.setEmail(user.getEmail());
+        userEditDTO.setRegion(user.getRegion());
+        return userEditDTO;
+    }
+
+    @Override
+    @Transactional
+    public void updateCurrentUser(UserEditDTO userEditDTO) throws EntityAlreadyExistsException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        User user = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new IllegalStateException("User not found: " + currentUsername));
+
+        // Optional: checks for unique username/email
+        if (!user.getUsername().equals(userEditDTO.getUsername())
+                && userRepository.existsByUsername(userEditDTO.getUsername())) {
+            throw new EntityAlreadyExistsException("User", "username");
+        }
+
+        if (!user.getEmail().equals(userEditDTO.getEmail())
+                && userRepository.existsByEmail(userEditDTO.getEmail())) {
+            throw new EntityAlreadyExistsException("User", "email");
+        }
+
+        user.setUsername(userEditDTO.getUsername());
+        user.setEmail(userEditDTO.getEmail());
+        user.setRegion(userEditDTO.getRegion());
+
+        userRepository.save(user);
     }
 
     @Override
@@ -131,6 +147,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Page<UserReadOnlyDTO> getPaginatedUsers(int page, int size) {
-        return null;
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> pageResult = userRepository.findAll(pageable);
+        List<UserReadOnlyDTO> dtoList = pageResult.getContent()
+                .stream()
+                .map(mapper::mapToUserReadOnlyDTO)
+                .toList();
+        return new PageImpl<>(dtoList, pageable, pageResult.getTotalElements());
     }
 }
+
+
