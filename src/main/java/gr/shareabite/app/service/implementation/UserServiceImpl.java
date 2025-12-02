@@ -30,7 +30,6 @@ public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
     private final UserMapper mapper;
     private final PasswordEncoder passwordEncoder;
-    private final
     //private final RoleRepository roleRepository;
     //override my interfaces!!!!!
 
