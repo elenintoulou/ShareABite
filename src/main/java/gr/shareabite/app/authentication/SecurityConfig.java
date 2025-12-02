@@ -15,11 +15,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                //.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
 
                         //Mipws na tsekarw pali poioi na mpainoun pantou
-                        .requestMatchers("/", "/aboutus", "/user/**", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/aboutus", "/user/login", "/user/register", "/css/**", "/js/**",
+                                "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
