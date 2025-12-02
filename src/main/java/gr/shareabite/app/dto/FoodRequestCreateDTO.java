@@ -18,6 +18,8 @@ import java.util.List;
 @Setter
 public class FoodRequestCreateDTO {
 
+    // i will not add User here, i will take him from the spring security
+
     @NotNull(message = "You have to choose the region")
     private Region region;
 
