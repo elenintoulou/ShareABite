@@ -40,7 +40,7 @@
         <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
 
         <select th:field="*{region}" class="form-select mb-1">
-            <option th:each="r : ${T(gr.shareabite.app.enums.Region).values()}"
+            <option th:each="r : ${T(gr.shareabite.app.core.enums.Region).values()}"
                     th:value="${r}"
                     th:text="${r}"></option>
         </select>
