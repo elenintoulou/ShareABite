@@ -32,6 +32,6 @@ public class FoodRequest extends AbstractEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "food_request", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "foodRequest", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RequestedItem> requestedItemList = new ArrayList<>();
 }
