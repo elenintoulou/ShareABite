@@ -10,28 +10,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavCollapsible">
                 <ul class="navbar-nav ms-auto">
-                    <!-- think of something to put when i press the choices -->
-                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home  <i class="bi bi-house-heart-fill" style="font-size: 15px;"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/aboutus}">About Us <i class="bi bi-info-lg" style="font-size: 15px;"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Communication <i class="bi bi-envelope-paper-heart-fill" style="font-size: 13px;"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/user/foodrequest/myrequests}">My Requests</a></li>
+                    <!-- EVERYONE CAN SEE THIS!!!!! -->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home<i class="bi bi-house-heart-fill" style="font-size: 15px;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/aboutus}">About Us<i class="bi bi-info-lg" style="font-size: 15px;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Communication<i class="bi bi-envelope-paper-heart-fill" style="font-size: 13px;"></i></a></li>
+
                     <!-- IF USER IS NOT LOGGED IN (ANONYMOUS) -->
-                    <li class="nav-item" th:if="${#authorization.expression('isAnonymous()')}">
-                        <a class="nav-link" th:href="@{/user/login}">
-                            Login <i class="bi bi-box-arrow-in-right" style="font-size: 14px;"></i>
-                        </a>
+                    <li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/user/login}">Login</a>
                     </li>
 
-                    <!-- IF USER IS LOGGED IN (AUTHENTICATED) -->
-                    <li class="nav-item d-flex align-items-center" th:if="${#authorization.expression('isAuthenticated()')}">
-                        <form th:action="@{/logout}" method="post" class="d-inline">
-                            <!-- CSRF token (ΜΟΝΟ αν έχεις CSRF ενεργό) -->
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/user/register}">Sign Up</a>
+                    </li>
 
-                            <button type="submit" class="btn btn-outline-light btn-sm ms-3">
-                                Logout <i class="bi bi-box-arrow-right" style="font-size: 14px;"></i>
-                            </button>
-                        </form>
+                    <!-- IF USER IS LOGGED IN (AUTHENTICATED) !!!!!-->
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/user/profile}">My Profile</a>
+                    </li>
+
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/user/foodrequest/myrequests}">My Requests</a>
+                    </li>
+
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
 
                 </ul>
