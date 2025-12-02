@@ -40,7 +40,7 @@ public class FoodRequestMapper {
     public FoodRequestReadOnlyDTO mapToFoodRequest(FoodRequest foodRequest) {
 
         //mapping the list
-        List<RequestedItemsReadOnlyDTO> requestedItemDTOs =
+        List<RequestedItemsReadOnlyDTO> requestedItemsReadOnlyDTOS =
                 foodRequest.getRequestedItemList()
                         .stream()
                         .map(item -> new RequestedItemsReadOnlyDTO(
@@ -52,6 +52,6 @@ public class FoodRequestMapper {
                         .toList();
 
         return new FoodRequestReadOnlyDTO(foodRequest.getId(), foodRequest.getStatus(), foodRequest.getRegion(),
-                foodRequest.getUser().getUsername(), foodRequest.getCreatedAt(), requestedItemDTOs);
+                foodRequest.getUser().getUsername(), foodRequest.getCreatedAt(), requestedItemsReadOnlyDTOS);
     }
 }
