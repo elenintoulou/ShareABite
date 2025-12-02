@@ -5,7 +5,6 @@ import gr.shareabite.app.core.exception.NotExistingEntityException;
 import gr.shareabite.app.dto.FoodRequestCreateDTO;
 import gr.shareabite.app.dto.FoodRequestReadOnlyDTO;
 import gr.shareabite.app.mapper.FoodRequestMapper;
-import gr.shareabite.app.mapper.UserMapper;
 import gr.shareabite.app.model.FoodRequest;
 import gr.shareabite.app.model.User;
 import gr.shareabite.app.repository.FoodRequestRepository;
@@ -16,6 +15,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,7 +56,12 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Page<FoodRequestReadOnlyDTO> getPaginatedFoodRequests(int page, int size) {
-        return null;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        Page<FoodRequest> requestsPage = foodRequestRepository.findByStatus(Status.OPEN, pageable);
+
+        return requestsPage.map(foodRequestMapper::mapToFoodRequest);
     }
 
     @Override
@@ -83,5 +90,26 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
     @Transactional(rollbackOn = Exception.class)
     public void updateFoodRequestStatus(Long id, Status status) {
 
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public Page<FoodRequestReadOnlyDTO> getPaginatedFoodRequestsForCurrentUser(int page, int size) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getName())) {
+            throw new IllegalStateException("No authenticated user found.");
+        }
+
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("User not found: " + username));
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        Page<FoodRequest> requestsPage = foodRequestRepository.findByUser(user, pageable);
+
+        return requestsPage.map(foodRequestMapper::mapToFoodRequest);
     }
 }
