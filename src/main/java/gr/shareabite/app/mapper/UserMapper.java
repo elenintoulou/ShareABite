@@ -27,7 +27,7 @@ public class UserMapper {
     }
 
     public UserEditDTO mapToUserEditDTO(User user) {
-        return new UserEditDTO(user.getPhoneNumber(), user.getRegion(), user.getEmail());
+        return new UserEditDTO(user.getUsername(),user.getPhoneNumber(), user.getRegion(), user.getEmail());
     }
 
     public void applyEdits(User user, UserEditDTO userEditDTO) {
