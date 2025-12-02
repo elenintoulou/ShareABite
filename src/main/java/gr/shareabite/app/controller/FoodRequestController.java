@@ -2,18 +2,17 @@ package gr.shareabite.app.controller;
 
 import gr.shareabite.app.core.exception.NotExistingEntityException;
 import gr.shareabite.app.dto.FoodRequestCreateDTO;
+import gr.shareabite.app.dto.FoodRequestReadOnlyDTO;
 import gr.shareabite.app.dto.RequestedItemsCreateDTO;
 import gr.shareabite.app.service.interfaces.IFoodRequestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -59,5 +58,34 @@ public class FoodRequestController {
     @GetMapping("/success")
     public String showSuccessPage() {
         return "success";
+    }
+
+    @GetMapping("/foodrequest/myrequests")
+    public String showMyRequests(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "10") int size,
+                                 Model model) {
+
+        Page<FoodRequestReadOnlyDTO> requestsPage =
+                iFoodRequestService.getPaginatedFoodRequestsForCurrentUser(page, size);
+
+        model.addAttribute("requestsPage", requestsPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+
+        return "myrequests";
+    }
+
+    @GetMapping("/foodrequest/open")
+    public String showOpenRequests(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   Model model) {
+
+        Page<FoodRequestReadOnlyDTO> requestsPage = iFoodRequestService.getPaginatedFoodRequests(page, size);
+
+        model.addAttribute("requestsPage", requestsPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+
+        return "openrequests";
     }
 }
