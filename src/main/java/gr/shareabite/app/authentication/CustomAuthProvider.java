@@ -38,27 +38,28 @@ public class CustomAuthProvider {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/user/**", "/css/**", "/js/**", "/images/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/user/login")          // GET page you serve
-                        .loginProcessingUrl("/user/login") //  Spring will handle POST here
-                        .defaultSuccessUrl("/", true)      // always go to /
-                        .failureUrl("/user/login?error")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/user/login?logout")
-                        .permitAll()
-                );
-
-        return http.build();
-    }
+    //I also have this in SecurityConfig!!!!!!it creates conflict when i run the project
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/", "/user/**", "/css/**", "/js/**", "/images/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .formLogin(form -> form
+//                        .loginPage("/user/login")          // GET page you serve
+//                        .loginProcessingUrl("/user/login") //  Spring will handle POST here
+//                        .defaultSuccessUrl("/", true)      // always go to /
+//                        .failureUrl("/user/login?error")
+//                        .permitAll()
+//                )
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout")
+//                        .logoutSuccessUrl("/user/login?logout")
+//                        .permitAll()
+//                );
+//
+//        return http.build();
+//    }
 }
 
