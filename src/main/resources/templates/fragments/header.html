@@ -26,7 +26,7 @@
 
                     <!-- IF USER IS LOGGED IN (AUTHENTICATED) !!!!!-->
                     <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                        <a class="nav-link" th:href="@{/user/profile}">My Profile</a>
+                        <a class="nav-link" th:href="@{/user/myprofile}">My Profile</a>
                     </li>
 
                     <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
