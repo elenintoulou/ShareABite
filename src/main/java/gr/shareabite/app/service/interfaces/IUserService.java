@@ -13,4 +13,5 @@ public interface IUserService {
     Page<UserReadOnlyDTO> getPaginatedUsers(int page, int size);
     UserEditDTO getCurrentUserForEdit();
     void updateCurrentUser(UserEditDTO userEditDTO) throws EntityAlreadyExistsException;
+    UserReadOnlyDTO getUserDetails();
 }

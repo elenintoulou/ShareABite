@@ -122,6 +122,23 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional
+    public UserReadOnlyDTO getUserDetails() {
+        // 1. Παίρνουμε το username του logged-in χρήστη
+        String username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+        // 2. Φέρνουμε το User από τη βάση
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("User not found: " + username));
+
+        // 3. Map σε UserReadOnlyDTO
+        return mapper.mapToUserReadOnlyDTO(user);
+    }
+
+    @Override
+    @Transactional
     public void changePassword(Long userId, PasswordChangeDTO passwordChangeDTO) throws NotExistingEntityException {
 
         User user = userRepository.findById(userId)
