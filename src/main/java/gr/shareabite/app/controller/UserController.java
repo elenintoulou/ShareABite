@@ -2,6 +2,7 @@ package gr.shareabite.app.controller;
 
 import gr.shareabite.app.core.enums.Region;
 import gr.shareabite.app.dto.UserEditDTO;
+import gr.shareabite.app.dto.UserReadOnlyDTO;
 import gr.shareabite.app.dto.UserRegisterDTO;
 import gr.shareabite.app.dto.UserSignInDTO;
 import gr.shareabite.app.core.exception.EntityAlreadyExistsException;
@@ -104,7 +105,14 @@ public class UserController {
         }
 
         redirectAttributes.addFlashAttribute("success", "Your profile has been updated successfully.");
-        return "redirect:/user/profile/edit";
+        return "redirect:/user/myprofile";
+    }
+
+    @GetMapping("/myprofile")
+    public String myProfile(Model model) {
+        UserReadOnlyDTO userReadOnlyDTO = iUserService.getUserDetails();
+        model.addAttribute("userReadOnlyDTO", userReadOnlyDTO);
+        return "myprofile";
     }
 
     @GetMapping("/logoutsuccess")
