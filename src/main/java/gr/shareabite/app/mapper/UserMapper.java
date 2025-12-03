@@ -23,7 +23,7 @@ public class UserMapper {
 
     public UserReadOnlyDTO mapToUserReadOnlyDTO(User user) {
         return new UserReadOnlyDTO(user.getId(), user.getUuid(), user.getUsername(), user.getEmail(),
-                user.getPhoneNumber(),  user.getRole(), user.getRegion(), user.getCreatedAt(), user.getUpdatedAt());
+                user.getPhoneNumber(), user.getRole(), user.getRegion(), user.getCreatedAt(), user.getUpdatedAt());
     }
 
     public UserEditDTO mapToUserEditDTO(User user) {
