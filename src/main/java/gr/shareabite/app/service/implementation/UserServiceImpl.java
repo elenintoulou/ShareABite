@@ -112,9 +112,10 @@ public class UserServiceImpl implements IUserService {
             throw new EntityAlreadyExistsException("User", "email");
         }
 
-        user.setUsername(userEditDTO.getUsername());
+        //user.setUsername(userEditDTO.getUsername());
         user.setEmail(userEditDTO.getEmail());
         user.setRegion(userEditDTO.getRegion());
+        user.setPhoneNumber(userEditDTO.getPhoneNumber());
 
         userRepository.save(user);
     }
