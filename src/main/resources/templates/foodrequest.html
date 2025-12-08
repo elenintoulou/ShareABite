@@ -61,19 +61,16 @@
       <div class="mb-2">
         <label class="form-label">Food item</label>
         <select class="form-select"
-                th:field="*{requestedItemsCreateDTOList[0].foodItems}">
-          <option value="" disabled
-                  th:selected="${requestedItemsCreateDTOList[0].foodItems == null}">
-            -- Select food item --
-          </option>
+                th:field="*{requestedItemList[0].foodItems}">
+          <option value="" disabled>-- Select food item --</option>
           <option th:each="fi : ${T(gr.shareabite.app.core.enums.FoodItems).values()}"
                   th:value="${fi}"
                   th:text="${fi}">
           </option>
         </select>
         <div class="text-danger small mt-1"
-             th:if="${#fields.hasErrors('requestedItemsCreateDTOList[0].foodItems')}"
-             th:errors="*{requestedItemsCreateDTOList[0].foodItems}">
+             th:if="${#fields.hasErrors('requestedItemList[0].foodItems')}"
+             th:errors="*{requestedItemList[0].foodItems}">
           Food item error
         </div>
       </div>
@@ -84,10 +81,10 @@
         <input type="number"
                min="1"
                class="form-control"
-               th:field="*{requestedItemsCreateDTOList[0].quantity}">
+               th:field="*{requestedItemList[0].quantity}">
         <div class="text-danger small mt-1"
-             th:if="${#fields.hasErrors('requestedItemsCreateDTOList[0].quantity')}"
-             th:errors="*{requestedItemsCreateDTOList[0].quantity}">
+             th:if="${#fields.hasErrors('requestedItemList[0].quantity')}"
+             th:errors="*{requestedItemList[0].quantity}">
           Quantity error
         </div>
       </div>
@@ -97,10 +94,10 @@
         <label class="form-label">Unit (e.g. kg, pcs, bags)</label>
         <input type="text"
                class="form-control"
-               th:field="*{requestedItemsCreateDTOList[0].unit}">
+               th:field="*{requestedItemList[0].unit}">
         <div class="text-danger small mt-1"
-             th:if="${#fields.hasErrors('requestedItemsCreateDTOList[0].unit')}"
-             th:errors="*{requestedItemsCreateDTOList[0].unit}">
+             th:if="${#fields.hasErrors('requestedItemList[0].unit')}"
+             th:errors="*{requestedItemList[0].unit}">
           Unit error
         </div>
       </div>
