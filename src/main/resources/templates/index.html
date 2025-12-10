@@ -25,6 +25,19 @@
     Together, let’s reduce food waste and make kindness easier, faster and accessible for everyone.</p>
   </div>
 
+  <div class="mt-3" th:if="${!#authorization.expression('isAuthenticated()')}">
+    <a th:href="@{/user/register}" class="btn btn-dark me-2">Get Started</a>
+    <a th:href="@{/aboutus}" class="btn btn-outline-dark">Learn More</a>
+  </div>
+  <div class="mt-3" th:if="${#authorization.expression('isAuthenticated()')}">
+    <a th:href="@{/user/foodrequest/create}" class="btn btn-dark me-2">
+      Create Request
+    </a>
+    <a th:href="@{/user/foodrequest/myrequests}" class="btn btn-outline-dark">
+      View My Requests
+    </a>
+  </div>
+
   <!-- photo carousel -->
   <div id="homeCarousel" class="carousel slide mt-2" data-bs-ride="carousel">
     <!-- Slides -->
@@ -59,6 +72,35 @@
     </button>
   </div>
 </main>
+
+<section class="mb-5">
+  <div class="bg-dark text-white rounded p-3 text-center">
+    <p class="mb-1">
+      <strong>Why Share A Bite?</strong>
+    </p>
+    <p class="mb-0 small">
+      We aim to reduce food waste, support local communities, and make it easier for people to help each other.
+      Every request is a story, and every contribution makes a difference.
+    </p>
+  </div>
+</section>
+
+<!-- MAP / REGIONS SECTION -->
+<section>
+  <h3 class="text-center text-white mb-3">Where we operate</h3>
+  <p class="text-center text-light small mb-4">
+    Share A Bite currently focuses on selected regions in Greece.
+    As the community grows, we plan to reach even more areas.
+  </p>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="ratio ratio-16x9">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50310.55897739637!2d23.697139843342583!3d37.9908976594448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bd1f067043f1%3A0x2736354576668ddd!2zzpHOuM6uzr3OsQ!5e0!3m2!1sel!2sgr!4v1765368471225!5m2!1sel!2sgr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
 
 <th:block th:replace="~{fragments/footer :: footer}"></th:block>
 
