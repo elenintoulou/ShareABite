@@ -29,7 +29,6 @@
         <th>Region</th>
         <th>Status</th>
         <th>Created At</th>
-        <th>Items Count</th>
       </tr>
       </thead>
       <tbody>
@@ -38,7 +37,6 @@
         <td th:text="${req.region}"></td>
         <td th:text="${req.status}"></td>
         <td th:text="${#temporals.format(req.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
-        <td th:text="${#lists.size(req.requestedItemList)}"></td>
       </tr>
       </tbody>
     </table>
