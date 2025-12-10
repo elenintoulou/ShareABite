@@ -1,7 +1,37 @@
 
 
-<footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer" class="fixed-bottom bg-dark  text-white py-3" >
-  <div class="container d-flex justify-content-center align-items-center">
-    © 2025 Share A Bite. All rights reserved.
-  </div>
-</footer>
+<footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer" class="bg-dark text-white py-2 mt-auto" >
+    <div class="container small">
+      <div class="row">
+        <div class="col-md-4 mb-2">
+          <h6>Share A Bite</h6>
+          <p class="text-muted">
+            A community initiative to reduce food waste and help local kitchens.
+          </p>
+        </div>
+        <div class="col-md-4 mb-2">
+          <h6>Navigation</h6>
+          <ul class="list-unstyled">
+            <li><a th:href="@{/}" class="text-white text-decoration-none">Home</a></li>
+            <li><a th:href="@{/aboutus}" class="text-white text-decoration-none">About Us</a></li>
+            <li><a th:href="@{/contact}" class="text-white text-decoration-none">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-2">
+          <h6>Connect</h6>
+          <p class="small">
+            <a href="#" class="text-white text-decoration-none me-2">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" class="text-white text-decoration-none">
+              <i class="bi bi-instagram"></i>
+            </a>
+          </p>
+        </div>
+
+      </div>
+      <div class="text-center text-muted small mt-3">
+        © 2025 Share A Bite — All Rights Reserved
+      </div>
+    </div>
+  </footer>
