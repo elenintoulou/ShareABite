@@ -1,5 +1,6 @@
 package gr.shareabite.app.controller;
 
+import gr.shareabite.app.core.enums.FoodItems;
 import gr.shareabite.app.core.exception.NotExistingEntityException;
 import gr.shareabite.app.dto.FoodRequestCreateDTO;
 import gr.shareabite.app.dto.FoodRequestReadOnlyDTO;
@@ -29,6 +30,8 @@ public class FoodRequestController {
         FoodRequestCreateDTO foodRequestCreateDTO = new FoodRequestCreateDTO();
         foodRequestCreateDTO.getRequestedItemList().add(new RequestedItemsCreateDTO());
         model.addAttribute("foodRequestCreateDTO", foodRequestCreateDTO);
+        // dropdown for the FoodItems
+        model.addAttribute("foodItems", FoodItems.values());
         return "foodrequest";
     }
 
@@ -52,11 +55,15 @@ public class FoodRequestController {
 
         // Success message
         redirectAttributes.addFlashAttribute("success", "Your food request was created successfully!");
-        return "redirect:/success";
+        return "redirect:/user/success";
     }
 
     @GetMapping("/success")
-    public String showSuccessPage() {
+    public String showSuccessPage(Model model) {
+        //i put that instead of the simple way which just returned the success page because i was taking an 500 error
+        if (!model.containsAttribute("success")) {
+            model.addAttribute("success", "Your request has been submitted.");
+        }
         return "success";
     }
 
