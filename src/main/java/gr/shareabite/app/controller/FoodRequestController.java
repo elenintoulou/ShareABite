@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 @RequestMapping("/user")
 @Slf4j
@@ -37,8 +38,22 @@ public class FoodRequestController {
 
     @PostMapping("/foodrequest/create")
     public String foodRequestPost(@Valid @ModelAttribute("foodRequestCreateDTO") FoodRequestCreateDTO foodRequestCreateDTO,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                  @RequestParam(name = "action", required = false) String action,
+                                  Model model) {
+
+        //this is for when the user wants to add more items and clicks the add item button
+        if ("addItem".equals(action)) {
+            // Add one more empty item row
+            foodRequestCreateDTO.getRequestedItemList().add(new RequestedItemsCreateDTO());
+            // for the dropdown
+            model.addAttribute("foodItems", FoodItems.values());
+
+            return "foodrequest";
+        }
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("foodItems", FoodItems.values());
             return "foodrequest";
         }
         try {
@@ -46,13 +61,14 @@ public class FoodRequestController {
         } catch (NotExistingEntityException e) {
             // User not found (should not happen normally)
             bindingResult.reject(null, "Something went wrong. Please try again.");
+            model.addAttribute("foodItems", FoodItems.values());
             return "foodrequest";
         } catch (Exception e) {
             // Any unexpected error
             bindingResult.reject(null, "An unexpected error occurred.");
+            model.addAttribute("foodItems", FoodItems.values());
             return "foodrequest";
         }
-
         // Success message
         redirectAttributes.addFlashAttribute("success", "Your food request was created successfully!");
         return "redirect:/user/success";
@@ -78,7 +94,6 @@ public class FoodRequestController {
         model.addAttribute("requestsPage", requestsPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
-
         return "myrequests";
     }
 
@@ -92,7 +107,13 @@ public class FoodRequestController {
         model.addAttribute("requestsPage", requestsPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
-
         return "openrequests";
+    }
+
+    @GetMapping("/foodrequest/{id}")
+    public String showFoodRequestDetails(@PathVariable("id") Long id, Model model) {
+        FoodRequestReadOnlyDTO foodRequestReadOnlyDTO = iFoodRequestService.getFoodRequestById(id);
+        model.addAttribute("foodRequest", foodRequestReadOnlyDTO);
+        return "foodrequestdetails";
     }
 }
