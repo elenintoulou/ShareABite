@@ -67,11 +67,10 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public FoodRequestReadOnlyDTO getFoodRequestById(Long id) throws EntityNotFoundException {
-//
-//        if (foodRequestRepository.findById(id)) {
-//            return foodRequestMapper.mapToFoodRequest(foodRequest);
-//        }
-    return null;
+        FoodRequest foodRequest = foodRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Request not found"));
+
+        return foodRequestMapper.mapToFoodRequest(foodRequest);
     }
 
     @Override
