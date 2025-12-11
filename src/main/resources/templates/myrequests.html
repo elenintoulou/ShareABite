@@ -29,6 +29,7 @@
         <th>Region</th>
         <th>Status</th>
         <th>Created At</th>
+        <th>View Request</th>
       </tr>
       </thead>
       <tbody>
@@ -37,6 +38,7 @@
         <td th:text="${req.region}"></td>
         <td th:text="${req.status}"></td>
         <td th:text="${#temporals.format(req.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+        <td><a class="btn btn-sm btn-outline-dark" th:href="@{/user/foodrequest/{id}(id=${req.id})}"> View</a></td>
       </tr>
       </tbody>
     </table>
