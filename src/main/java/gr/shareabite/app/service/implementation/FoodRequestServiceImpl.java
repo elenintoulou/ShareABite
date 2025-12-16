@@ -111,4 +111,30 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
 
         return requestsPage.map(foodRequestMapper::mapToFoodRequest);
     }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public Page<FoodRequestReadOnlyDTO> getOpenRequestsByRegion(String username, int page, int size) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        Page<FoodRequest> requests = foodRequestRepository.findByStatusAndRegion(Status.OPEN, user.getRegion(), pageable);
+
+        return requests.map(foodRequestMapper::mapToFoodRequest);
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public void fulfillRequest(Long id, String username) {
+        FoodRequest request = foodRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Request not found"));
+
+        if (request.getStatus() != Status.OPEN) {
+            throw new IllegalStateException("Request is not open");
+        }
+        request.setStatus(Status.COMPLETED);
+        foodRequestRepository.save(request);
+    }
 }
