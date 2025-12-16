@@ -15,4 +15,6 @@ public interface IFoodRequestService {
     void deleteFoodRequest(Long id);
     void updateFoodRequestStatus(Long id, Status status);
     Page<FoodRequestReadOnlyDTO> getPaginatedFoodRequestsForCurrentUser(int page, int size);
+    Page<FoodRequestReadOnlyDTO> getOpenRequestsByRegion(String username, int page, int size);
+    void fulfillRequest(Long id, String username);
 }
