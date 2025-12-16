@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+
 
 @Controller
 @RequestMapping("/user")
@@ -115,5 +117,27 @@ public class FoodRequestController {
         FoodRequestReadOnlyDTO foodRequestReadOnlyDTO = iFoodRequestService.getFoodRequestById(id);
         model.addAttribute("foodRequest", foodRequestReadOnlyDTO);
         return "foodrequestdetails";
+    }
+
+    @GetMapping("/requests/open")
+    public String openRequestsForVolunteer(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size, Principal principal, Model model){
+
+        Page<FoodRequestReadOnlyDTO> requestsPage = iFoodRequestService.getOpenRequestsByRegion(principal.getName(), page, size);
+        model.addAttribute("requestsPage", requestsPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+        return "openrequests";
+    }
+
+    @PostMapping("/foodrequest/{id}/fulfill")
+    public String fulfillRequest(@PathVariable Long id, Principal principal, RedirectAttributes redirectAttributes) {
+
+        iFoodRequestService.fulfillRequest(id, principal.getName());
+
+        redirectAttributes.addFlashAttribute("success",
+                "Thank you! The request has been marked as completed.");
+
+        return "redirect:/user/requests/open";
     }
 }
