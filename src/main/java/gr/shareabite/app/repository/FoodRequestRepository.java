@@ -19,4 +19,5 @@ public interface FoodRequestRepository extends JpaRepository<FoodRequest, Long> 
     List<FoodRequest> findByRegionAndStatus(Region region, Status status);
     Page<FoodRequest> findByUser(User user, Pageable pageable);
     Page<FoodRequest> findByStatus(Status status, Pageable pageable);
+    Page<FoodRequest> findByStatusAndRegion(Status status, Region region, Pageable pageable);
 }
