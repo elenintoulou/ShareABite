@@ -7,14 +7,13 @@ import gr.shareabite.app.dto.FoodRequestReadOnlyDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 
+
 public interface IFoodRequestService {
     void saveFoodRequest(FoodRequestCreateDTO foodRequestCreateDTO) throws NotExistingEntityException;
     Page<FoodRequestReadOnlyDTO> getPaginatedFoodRequests(int page, int size);
     FoodRequestReadOnlyDTO getFoodRequestById(Long id) throws EntityNotFoundException;
-    void updateFoodRequest(Long id, FoodRequestCreateDTO foodRequestCreateDTO);
-    void deleteFoodRequest(Long id);
-    void updateFoodRequestStatus(Long id, Status status);
+    void updateFoodRequestStatus(Long id, Status status, String username);
     Page<FoodRequestReadOnlyDTO> getPaginatedFoodRequestsForCurrentUser(int page, int size);
-    Page<FoodRequestReadOnlyDTO> getOpenRequestsByRegion(String username, int page, int size);
+    Page<FoodRequestReadOnlyDTO> getRequestsByRegion(String username, int page, int size);
     void fulfillRequest(Long id, String username);
 }
