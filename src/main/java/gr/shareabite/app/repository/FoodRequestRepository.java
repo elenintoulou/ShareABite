@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -20,4 +21,6 @@ public interface FoodRequestRepository extends JpaRepository<FoodRequest, Long> 
     Page<FoodRequest> findByUser(User user, Pageable pageable);
     Page<FoodRequest> findByStatus(Status status, Pageable pageable);
     Page<FoodRequest> findByStatusAndRegion(Status status, Region region, Pageable pageable);
+    Page<FoodRequest> findByRegionAndStatusIn(Region region, Collection<Status> statuses, Pageable pageable);
+
 }
