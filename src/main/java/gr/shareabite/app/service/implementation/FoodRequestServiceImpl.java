@@ -22,6 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.List;
+
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -73,22 +76,25 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
         return foodRequestMapper.mapToFoodRequest(foodRequest);
     }
 
-    @Override
-    @Transactional(rollbackOn = Exception.class)
-    public void updateFoodRequest(Long id, FoodRequestCreateDTO foodRequestCreateDTO) {
-
-    }
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public void deleteFoodRequest(Long id) {
+    public void updateFoodRequestStatus(Long id, Status status, String username) {
+        FoodRequest request = foodRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Request not found"));
 
-    }
-
-    @Override
-    @Transactional(rollbackOn = Exception.class)
-    public void updateFoodRequestStatus(Long id, Status status) {
-
+        // Only OPEN requests can change status
+        if (request.getStatus() != Status.OPEN) {
+            throw new IllegalStateException("Only open requests can be updated");
+        }
+        // Only owner can cancel
+        if (status == Status.CANCELLED) {
+            if (!request.getUser().getUsername().equals(username)) {
+                throw new IllegalStateException("You can cancel only your own request");
+            }
+            request.setStatus(Status.CANCELLED);
+        }
+        foodRequestRepository.save(request);
     }
 
     @Override
@@ -114,13 +120,13 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Page<FoodRequestReadOnlyDTO> getOpenRequestsByRegion(String username, int page, int size) {
+    public Page<FoodRequestReadOnlyDTO> getRequestsByRegion(String username, int page, int size) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
-        Page<FoodRequest> requests = foodRequestRepository.findByStatusAndRegion(Status.OPEN, user.getRegion(), pageable);
+        Page<FoodRequest> requests = foodRequestRepository.findByRegionAndStatusIn(user.getRegion(), List.of(Status.OPEN, Status.COMPLETED), pageable);
 
         return requests.map(foodRequestMapper::mapToFoodRequest);
     }
@@ -134,7 +140,11 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
         if (request.getStatus() != Status.OPEN) {
             throw new IllegalStateException("Request is not open");
         }
+        if (request.getUser().getUsername().equals(username)) {
+            throw new IllegalStateException("You cannot fulfill your own request");
+        }
         request.setStatus(Status.COMPLETED);
         foodRequestRepository.save(request);
     }
+
 }
