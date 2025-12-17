@@ -1,6 +1,7 @@
 package gr.shareabite.app.controller;
 
 import gr.shareabite.app.core.enums.FoodItems;
+import gr.shareabite.app.core.enums.Status;
 import gr.shareabite.app.core.exception.NotExistingEntityException;
 import gr.shareabite.app.dto.FoodRequestCreateDTO;
 import gr.shareabite.app.dto.FoodRequestReadOnlyDTO;
@@ -123,7 +124,7 @@ public class FoodRequestController {
     public String openRequestsForVolunteer(@RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size, Principal principal, Model model){
 
-        Page<FoodRequestReadOnlyDTO> requestsPage = iFoodRequestService.getOpenRequestsByRegion(principal.getName(), page, size);
+        Page<FoodRequestReadOnlyDTO> requestsPage = iFoodRequestService.getRequestsByRegion(principal.getName(), page, size);
         model.addAttribute("requestsPage", requestsPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
@@ -133,11 +134,23 @@ public class FoodRequestController {
     @PostMapping("/foodrequest/{id}/fulfill")
     public String fulfillRequest(@PathVariable Long id, Principal principal, RedirectAttributes redirectAttributes) {
 
-        iFoodRequestService.fulfillRequest(id, principal.getName());
-
-        redirectAttributes.addFlashAttribute("success",
-                "Thank you! The request has been marked as completed.");
-
+        try {
+            iFoodRequestService.fulfillRequest(id, principal.getName());
+            redirectAttributes.addFlashAttribute("success","Thank you! The request has been completed.");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/user/requests/open";
+    }
+
+    @PostMapping("/foodrequest/{id}/cancel")
+    public String cancelRequest(@PathVariable Long id, Principal principal, RedirectAttributes redirectAttributes) {
+        try {
+            iFoodRequestService.updateFoodRequestStatus(id, Status.CANCELLED, principal.getName());
+            redirectAttributes.addFlashAttribute("success", "Request cancelled");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/user/foodrequest/myrequests";
     }
 }
