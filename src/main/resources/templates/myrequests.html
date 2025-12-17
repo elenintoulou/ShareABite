@@ -16,9 +16,7 @@
   <h2 class="mb-4 text-center">My Food Requests</h2>
 
   <div th:if="${requestsPage.empty}">
-    <div class="alert alert-info text-center">
-      You have not created any food requests yet.
-    </div>
+    <div class="alert alert-info text-center">You have not created any food requests yet.</div>
   </div>
 
   <div th:if="${!requestsPage.empty}">
@@ -28,6 +26,7 @@
         <th>Id</th>
         <th>Region</th>
         <th>Status</th>
+        <th>Actions</th>
         <th>Created At</th>
         <th>View Request</th>
       </tr>
@@ -37,8 +36,13 @@
         <td th:text="${req.id}"></td>
         <td th:text="${req.region}"></td>
         <td th:text="${req.status}"></td>
+        <td><form th:if="${req.status == T(gr.shareabite.app.core.enums.Status).OPEN}"th:action="@{/user/foodrequest/{id}/cancel(id=${req.id})}"
+              method="post" class="d-inline">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <button type="submit" class="btn btn-sm btn-outline-danger">Cancel </button>
+        </form></td>
         <td th:text="${#temporals.format(req.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
-        <td><a class="btn btn-sm btn-outline-dark" th:href="@{/user/foodrequest/{id}(id=${req.id})}"> View</a></td>
+        <td><a class="btn btn-sm btn-outline-dark" th:href="@{/user/foodrequest/{id}(id=${req.id})}">View</a></td>
       </tr>
       </tbody>
     </table>
