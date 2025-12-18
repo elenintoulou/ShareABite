@@ -62,6 +62,7 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    //TODO: make a controller & a html page for this method in the future!!!!
     @Override
     @Transactional(rollbackOn = Exception.class)
     public void saveUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException {
@@ -78,6 +79,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional(rollbackOn = Exception.class)
     public UserEditDTO getCurrentUserForEdit() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -93,7 +95,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void updateCurrentUser(UserEditDTO userEditDTO) throws EntityAlreadyExistsException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
@@ -121,7 +123,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public UserReadOnlyDTO getUserDetails() {
         // 1. Παίρνουμε το username του logged-in χρήστη
         String username = SecurityContextHolder
@@ -137,8 +139,9 @@ public class UserServiceImpl implements IUserService {
         return mapper.mapToUserReadOnlyDTO(user);
     }
 
+    //TODO: make a controller & a html page for this method in the future!!!!
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void changePassword(Long userId, PasswordChangeDTO passwordChangeDTO) throws NotExistingEntityException {
 
         User user = userRepository.findById(userId)
@@ -162,7 +165,9 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
     }
 
+    //TODO: make a controller & a html page for this method in the future!!!!
     @Override
+    @Transactional(rollbackOn = Exception.class)
     public Page<UserReadOnlyDTO> getPaginatedUsers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<User> pageResult = userRepository.findAll(pageable);
