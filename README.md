@@ -23,7 +23,7 @@ The database schema is derived directly from the domain model following a Model 
 
 ---
 
-The tecnologies i use are the following: 
+The technologies i use are the following: 
 ---
 ### Backend
 - Java 17
