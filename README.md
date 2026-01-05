@@ -63,6 +63,8 @@ Use Gitbash or any terminal of your choice and run the following:
 The application will be available at: 
 http://localhost:8080
 
+The name of the database is: shareabiteappbd
+
 ## Author
 Eleni Ntoulou
 Final Project for Coding Factory 8 (AUEB)
