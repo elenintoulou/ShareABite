@@ -11,7 +11,7 @@
 <body style="background-color: #9e9797;">
 
 <th:block th:replace="~{fragments/header :: header}"></th:block>
-
+<main class="flex-grow-1">
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
 
     <form th:action="@{/user/login}" method="post" class="w-100" style="max-width: 350px;">
@@ -39,7 +39,7 @@
 
     </form>
 </div>
-
+</main>
 <th:block th:replace="~{fragments/footer :: footer}"></th:block>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
