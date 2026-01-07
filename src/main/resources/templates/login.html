@@ -9,35 +9,29 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=restaurant" />
 </head>
 
-<body style="background-color: #9e9797;">
+<body class="d-flex flex-column min-vh-100" style="background-color: #9e9797;">
 
 <th:block th:replace="~{fragments/header :: header}"></th:block>
-<main class="flex-grow-1">
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+<main class="flex-grow-1 d-flex align-items-center">
+<div class="container d-flex justify-content-center align-items-center h-100">
 
     <form th:action="@{/user/login}" method="post" class="w-100" style="max-width: 350px;">
 
-        <!-- ✅ Flash success message from register -->
+        <!--  Flash success message from register -->
         <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
             <span th:text="${success}"></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 
-        <div class="text-center mb-3">
-            <h4>Welcome Back</h4>
-        </div>
+        <div class="text-center"><h4>Welcome Back</h4></div>
 
         <input name="username" placeholder="Username" class="form-control mb-2" required>
         <input name="password" type="password" placeholder="Password" class="form-control mb-2" required>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-        <!-- ✅ Optional login failure message -->
-        <div th:if="${param.error}" class="text-danger small mb-2">
-            Invalid username or password.
-        </div>
-
+        <!--  Optional login failure message -->
+        <div th:if="${param.error}" class="text-danger small mb-2">Invalid username or password.</div>
         <button type="submit" class="btn btn-dark w-100 mt-2">Login</button>
-
     </form>
 </div>
 </main>
