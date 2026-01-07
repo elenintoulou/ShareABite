@@ -6,7 +6,9 @@
 The application is also designed with locality in mind, encouraging people to first offer food within their own region, reducing unnecessary transportation and contributing to lower CO₂ emissions.
 
 **Share A Bite** is a Spring Boot web application designed to support food donation efforts. Users can create food requests, while volunteers can view requests in their region and fulfill them. 
-The project is built with a focus on clean architecture, domain-driven design and and clear separation of responsibilities. Some additional features (such as admin functionality) are intentionally not fully implemented at this stage. They were not considered essential for the core workflow of the application right now and will be added in the future.
+The project is built with a focus on clean architecture, domain-driven design and clear separation of responsibilities. Access to user-related functionality is protected using Spring Security, ensuring that only authenticated users can create and manage food requests.
+Some additional features (such as admin functionality) are intentionally not fully implemented at this stage, as they were not considered essential for the core workflow of the application.
+The index page includes a map showing the current service area, in future versions, this map may be extended with pins representing partner locations.
 
 ##  Domain Model
 
@@ -23,7 +25,7 @@ The database schema is derived directly from the domain model following a Model 
 
 ---
 
-The technologies i use are the following: 
+The technologies I use are the following: 
 ---
 ### Backend
 - Java 17
@@ -51,8 +53,10 @@ The technologies i use are the following:
 - An IDE (I used IntelliJ IDEA)
 
 ### Database Setup
-Create a MySQL database and configure the connection in `application.properties`  
-(or use environment variables if preferred).
+Create a MySQL database and configure the connection in `application.properties`
+Environment variables used:
+- MYSQL_USER
+- MYSQL_PASSWORD
 
 ### Build
 Use Gitbash or any terminal of your choice and run the following: 
