@@ -44,7 +44,7 @@
           <button type="submit" class="btn btn-sm btn-outline-danger">Cancel </button>
         </form></td>
         <td th:text="${#temporals.format(req.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
-        <td><a class="btn btn-sm btn-outline-dark" th:href="@{/user/foodrequest/{id}(id=${req.id})}">View</a></td>
+        <td><a class="btn btn-sm btn-outline-dark" th:href="@{/user/foodrequest/{id}(id=${req.id}, from='my')}">View</a></td>
       </tr>
       </tbody>
     </table>
