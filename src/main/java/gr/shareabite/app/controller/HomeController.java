@@ -15,4 +15,9 @@ public class HomeController {
     public String aboutUsPage() {
         return "aboutus";
     }
+
+    @GetMapping("/contact")
+    public String ContactUsPage() {
+        return "contact";
+    }
 }
