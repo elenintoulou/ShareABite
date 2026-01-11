@@ -55,7 +55,7 @@
 
         <li class="page-item" th:classappend="${requestsPage.first} ? 'disabled'">
           <a class="page-link text-dark"
-             th:href="@{/user/foodrequest/my-requests(page=${currentPage - 1}, size=${pageSize})}">
+             th:href="@{/user/foodrequest/myrequests(page=${currentPage - 1}, size=${pageSize})}">
             Previous
           </a>
         </li>
@@ -65,13 +65,13 @@
             th:classappend="${p == currentPage} ? 'active'">
           <a class="page-link text-dark"
              th:text="${p + 1}"
-             th:href="@{/user/foodrequest/my-requests(page=${p}, size=${pageSize})}">
+             th:href="@{/user/foodrequest/myrequests(page=${p}, size=${pageSize})}">
           </a>
         </li>
 
         <li class="page-item" th:classappend="${requestsPage.last} ? 'disabled'">
           <a class="page-link text-dark"
-             th:href="@{/user/foodrequest/my-requests(page=${currentPage + 1}, size=${pageSize})}">
+             th:href="@{/user/foodrequest/myrequests(page=${currentPage + 1}, size=${pageSize})}">
             Next
           </a>
         </li>
