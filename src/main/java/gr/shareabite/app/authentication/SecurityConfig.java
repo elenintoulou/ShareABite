@@ -19,13 +19,13 @@ public class SecurityConfig {
 
                         //Mipws na tsekarw pali poioi na mpainoun pantou
                         .requestMatchers("/", "/aboutus", "/user/login", "/user/register", "/css/**", "/js/**",
-                                "/images/**").permitAll()
+                                "/contact", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/user/login")          // GET page you serve
-                        .loginProcessingUrl("/user/login") //  Spring will handle POST here
-                        .defaultSuccessUrl("/", true)      // always go to /
+                        .loginPage("/user/login")
+                        .loginProcessingUrl("/user/login")
+                        .defaultSuccessUrl("/", true)      // always go to "/"
                         .failureUrl("/user/login?error")
                         .permitAll()
                 )
