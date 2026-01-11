@@ -8,7 +8,7 @@ The application is also designed with locality in mind, encouraging people to fi
 **Share A Bite** is a Spring Boot web application designed to support food donation efforts. Users can create food requests, while volunteers can view requests in their region and fulfill them. 
 The project is built with a focus on clean architecture, domain-driven design and clear separation of responsibilities. Access to user-related functionality is protected using Spring Security, ensuring that only authenticated users can create and manage food requests.
 Some additional features (such as admin functionality) are intentionally not fully implemented at this stage, as they were not considered essential for the core workflow of the application.
-The index page includes a map showing the current service area, in future versions, this map may be extended with pins representing partner locations.
+The index page includes a map showing the current service area, in future versions, this map may be extended with pins representing partner locations. As for the contact page, interactive communication features will be added in future versions of the application.
 
 ##  Domain Model
 
