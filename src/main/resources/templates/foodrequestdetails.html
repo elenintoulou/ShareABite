@@ -49,7 +49,11 @@
         </tbody>
       </table>
 
-      <a th:href="@{/user/foodrequest/myrequests}" class="btn btn-outline-secondary">Back to My Requests</a>
+      <a th:if="${from == 'my'}" th:href="@{/user/foodrequest/myrequests}" class="btn btn-outline-secondary">
+        Back to my requests</a>
+
+      <a th:if="${from == 'open'}" th:href="@{/user/requests/open}" class="btn btn-outline-secondary">
+        Back to open requests</a>
     </div>
   </div>
 </div>
