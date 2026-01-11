@@ -10,9 +10,9 @@
             <div class="collapse navbar-collapse" id="navbarNavCollapsible">
                 <ul class="navbar-nav ms-auto">
                     <!-- EVERYONE CAN SEE THIS!!!!! -->
-                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home<i class="bi bi-house-heart-fill" style="font-size: 15px;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home<i class="bi bi-house-heart-fill ms-1" style="font-size: 15px;"></i></a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/aboutus}">About Us<i class="bi bi-info-lg" style="font-size: 15px;"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact Us<i class="bi bi-envelope-paper-heart-fill" style="font-size: 13px;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact Us<i class="bi bi-envelope-paper-heart-fill ms-2" style="font-size: 13px;"></i></a></li>
 
                     <!-- IF USER IS NOT LOGGED IN (ANONYMOUS) -->
                     <li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
