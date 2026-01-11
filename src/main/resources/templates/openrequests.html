@@ -19,9 +19,7 @@
     <h2 class="mb-4 text-center">All Open Food Requests</h2>
 
     <div th:if="${requestsPage.empty}">
-        <div class="alert alert-info text-center">
-            There are no open food requests at the moment.
-        </div>
+        <div class="alert alert-info text-center">There are no open food requests at the moment.</div>
     </div>
 
     <div th:if="${!requestsPage.empty}">
@@ -32,7 +30,8 @@
                 <th>Status</th>
                 <th>Created At</th>
                 <th>Requested By</th>
-                <th>Status</th>
+                <th>View Request</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -41,13 +40,14 @@
                 <td th:text="${req.status}"></td>
                 <td th:text="${#temporals.format(req.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
                 <td th:text="${req.username}"></td>
-                <td><!-- Show button ONLY if OPEN -->
+                <td><a class="btn btn-sm btn-outline-dark" th:href="@{/user/foodrequest/{id}(id=${req.id}, from='open')}">View</a></td>
+                <td><!-- Show button ONLY if request is OPEN -->
                     <form th:if="${req.status == T(gr.shareabite.app.core.enums.Status).OPEN}"
                           th:action="@{/user/foodrequest/{id}/fulfill(id=${req.id})}" method="post" class="d-inline">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <button type="submit" class="btn btn-sm btn-success">Fulfill</button>
                     </form>
-                    <!-- If COMPLETED, show badge instead -->
+                    <!-- If COMPLETED, show completed instead -->
                     <span th:if="${req.status == T(gr.shareabite.app.core.enums.Status).COMPLETED}"
                           class="badge text-bg-success">Completed</span>
                 </td>
