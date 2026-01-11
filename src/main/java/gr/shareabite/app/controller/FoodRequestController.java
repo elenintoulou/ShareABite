@@ -114,9 +114,10 @@ public class FoodRequestController {
     }
 
     @GetMapping("/foodrequest/{id}")
-    public String showFoodRequestDetails(@PathVariable("id") Long id, Model model) {
+    public String showFoodRequestDetails(@PathVariable("id") Long id, Model model, @RequestParam(required = false) String from) {
         FoodRequestReadOnlyDTO foodRequestReadOnlyDTO = iFoodRequestService.getFoodRequestById(id);
         model.addAttribute("foodRequest", foodRequestReadOnlyDTO);
+        model.addAttribute("from", from);
         return "foodrequestdetails";
     }
 
