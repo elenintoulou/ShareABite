@@ -33,5 +33,6 @@ public class UserRegisterDTO {
             message = "Invalid email address.")
     private String email;
 
+    @NotNull(message = "The region cannot be null.")
     private Region region;
 }
