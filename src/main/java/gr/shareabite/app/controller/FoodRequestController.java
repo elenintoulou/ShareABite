@@ -34,7 +34,7 @@ public class FoodRequestController {
         FoodRequestCreateDTO foodRequestCreateDTO = new FoodRequestCreateDTO();
         foodRequestCreateDTO.getRequestedItemList().add(new RequestedItemsCreateDTO());
         model.addAttribute("foodRequestCreateDTO", foodRequestCreateDTO);
-        // dropdown for the FoodItems
+        // dropdown for FoodItems
         model.addAttribute("foodItems", FoodItems.values());
         return "foodrequest";
     }
@@ -45,7 +45,7 @@ public class FoodRequestController {
                                   @RequestParam(name = "action", required = false) String action,
                                   Model model) {
 
-        //this is for when the user wants to add more items and clicks the add item button
+        //when the user  clicks the add item button
         if ("addItem".equals(action)) {
             // Add one more empty item row
             foodRequestCreateDTO.getRequestedItemList().add(new RequestedItemsCreateDTO());
@@ -62,24 +62,21 @@ public class FoodRequestController {
         try {
             iFoodRequestService.saveFoodRequest(foodRequestCreateDTO);
         } catch (NotExistingEntityException e) {
-            // User not found (should not happen normally)
             bindingResult.reject(null, "Something went wrong. Please try again.");
             model.addAttribute("foodItems", FoodItems.values());
             return "foodrequest";
         } catch (Exception e) {
-            // Any unexpected error
             bindingResult.reject(null, "An unexpected error occurred.");
             model.addAttribute("foodItems", FoodItems.values());
             return "foodrequest";
         }
-        // Success message
         redirectAttributes.addFlashAttribute("success", "Your food request was created successfully!");
         return "redirect:/user/success";
     }
 
     @GetMapping("/success")
     public String showSuccessPage(Model model) {
-        //i put that instead of the simple way which just returned the success page because i was taking an 500 error
+        //return the success page with a message
         if (!model.containsAttribute("success")) {
             model.addAttribute("success", "Your request has been submitted.");
         }
@@ -104,7 +101,6 @@ public class FoodRequestController {
     public String showOpenRequests(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size,
                                    Model model) {
-
         Page<FoodRequestReadOnlyDTO> requestsPage = iFoodRequestService.getPaginatedFoodRequests(page, size);
 
         model.addAttribute("requestsPage", requestsPage);
