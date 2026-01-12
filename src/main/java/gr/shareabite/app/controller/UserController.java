@@ -25,11 +25,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Slf4j
 public class UserController {
 
-    //Dependency injection the Interface and not the implementation!!!!
+    //Dependency injection the Interface and not the implementation
     private final IUserService iUserService;
 
-    // με το model (ένα έτοιμο interface του Spring που χρησιμοποιεί ένα Map για να ορίζει key, value pairs)
-    // μεταφέρουμε data από τον Controller στη σελίδα
+    //  με model μεταφέρουμε data από τον Controller  στο view
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("userRegisterDTO", new UserRegisterDTO());
@@ -40,30 +39,24 @@ public class UserController {
     public String registerUser(@Valid @ModelAttribute("userRegisterDTO") UserRegisterDTO userRegisterDTO,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        //ADD VALIDATION AND VALIDATOR???
         if (bindingResult.hasErrors()) {
             return "register";
         }
         try {
             iUserService.registerUser(userRegisterDTO);
         } catch (EntityAlreadyExistsException e) {
-            // Here you decide *where* to show the error:
             if (e.getMessage().contains("username")) {
                 bindingResult.rejectValue("username", null, "This username is already taken.");
             } else if (e.getMessage().contains("email")) {
                 bindingResult.rejectValue("email", null, "This email is already registered.");
             } else {
-                // fallback → global error
                 bindingResult.reject(null, e.getMessage());
             }
-
             return "register";
         }
 
-        //success flash message!
         redirectAttributes.addFlashAttribute("success", "Your account has been created." +
                 " Please log in.");
-
         return "redirect:/user/login";
     }
 
