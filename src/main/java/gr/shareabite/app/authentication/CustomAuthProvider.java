@@ -17,7 +17,6 @@ public class CustomAuthProvider {
 
     private final UserDetailsService userDetailsService;
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);

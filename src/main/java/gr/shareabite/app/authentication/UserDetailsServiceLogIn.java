@@ -28,7 +28,7 @@ public class UserDetailsServiceLogIn implements UserDetailsService {
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
-                .password(user.getPassword()) // ΜΕΤΑ το encode στο register ✅
+                .password(user.getPassword())
                 .authorities(authorities)
                 .build();
     }

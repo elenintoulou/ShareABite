@@ -17,7 +17,6 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
 
-                        //Mipws na tsekarw pali poioi na mpainoun pantou
                         .requestMatchers("/", "/aboutus", "/user/login", "/user/register", "/css/**", "/js/**",
                                 "/contact", "/images/**").permitAll()
                         .anyRequest().authenticated()
@@ -36,7 +35,6 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 );
-
         return http.build();
     }
 }
