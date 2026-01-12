@@ -39,7 +39,7 @@
             </div>
             <div class="mb-3">
                 <label for="phoneNumber" class="form-label">Phone Number</label>
-                <input th:field="*{phoneNumber}" id="phoneNumber" class="form-control" type="number"/>
+                <input th:field="*{phoneNumber}" id="phoneNumber" class="form-control" type="tel" inputmode="tel"/>
                 <div class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
                      th:errors="*{phoneNumber}"></div>
             </div>
