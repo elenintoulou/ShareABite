@@ -20,15 +20,12 @@
     <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%; border-radius: 10px;">
 
         <h3 class="text-center mb-3">Edit Profile</h3>
-
         <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-
         <form th:action="@{/user/profile/edit}" th:object="${userEditDTO}" method="post">
-
-
             <div class="mb-3">
-                <label class="form-label">Username</label>
-                <p class="form-control-plaintext" th:text="*{username}"></p>
+                <label class="form-label ">Username </label>
+                <input class="form-control" th:value="*{username}" disabled>
+                <input type="hidden" th:field="*{username}" >
             </div>
 
             <div class="mb-3">
