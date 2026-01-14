@@ -10,37 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-    public User mapToEntity(UserInsertDTO userInsertDTO) {
-        return User.builder()
-                .username(userInsertDTO.getUsername())
-                .password(userInsertDTO.getPassword())
-                .email(userInsertDTO.getEmail())
-                .phoneNumber(userInsertDTO.getPhoneNumber())
-                .region(userInsertDTO.getRegion())
-                .role(userInsertDTO.getRole())
-                .build();
-    }
-
     public UserReadOnlyDTO mapToUserReadOnlyDTO(User user) {
         return new UserReadOnlyDTO(user.getId(), user.getUuid(), user.getUsername(), user.getEmail(),
                 user.getPhoneNumber(), user.getRole(), user.getRegion(), user.getCreatedAt(), user.getUpdatedAt());
-    }
-
-    public UserEditDTO mapToUserEditDTO(User user) {
-        return new UserEditDTO(user.getUsername(),user.getPhoneNumber(), user.getRegion(), user.getEmail());
-    }
-
-    public void applyEdits(User user, UserEditDTO userEditDTO) {
-
-        if (userEditDTO.getEmail() != null && !userEditDTO.getEmail().isBlank()) {
-            user.setEmail(userEditDTO.getEmail());
-        }
-        if (userEditDTO.getRegion() != null) {
-            user.setRegion(userEditDTO.getRegion());
-        }
-        if (userEditDTO.getPhoneNumber() != null && !userEditDTO.getPhoneNumber().isBlank()) {
-            user.setPhoneNumber(userEditDTO.getPhoneNumber());
-        }
     }
 
     //to create a new User from the dto
@@ -51,10 +23,5 @@ public class UserMapper {
                 .email(userRegisterDTO.getEmail())
                 .region(userRegisterDTO.getRegion())
                 .build();
-    }
-    //to "update" my existing user with the dto data!!!!
-    public void applyRegistration(User user, UserRegisterDTO userRegisterDTO) {
-        user.setEmail(userRegisterDTO.getEmail());
-        user.setRegion(userRegisterDTO.getRegion());
     }
 }
