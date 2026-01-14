@@ -29,7 +29,6 @@
         <input name="password" type="password" placeholder="Password" class="form-control mb-2" required>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-        <!--  Optional login failure message -->
         <div th:if="${param.error}" class="text-danger small mb-2">Invalid username or password.</div>
         <button type="submit" class="btn btn-dark w-100 mt-2">Login</button>
     </form>

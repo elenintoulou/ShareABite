@@ -20,20 +20,18 @@
         class="w-100 bg-white p-4 rounded shadow"
         style="max-width: 550px;">
 
-    <!-- Title -->
     <div class="text-center mb-3">
       <h4>Create Food Request</h4>
       <p class="text-muted mb-0">Tell us what you need in your region</p>
     </div>
 
-    <!-- Global error (optional) -->
+    <!-- Global error -->
     <div th:if="${#fields.hasGlobalErrors()}"
          class="alert alert-danger py-2">
             <span th:each="err : ${#fields.globalErrors()}"
                   th:text="${err}">Error</span>
     </div>
 
-    <!-- Region -->
     <div class="mb-3">
       <label class="form-label">Region</label>
       <select class="form-select"
@@ -54,14 +52,14 @@
       </div>
     </div>
 
-    <!-- Requested items (loop over the list) -->
+    <!-- Requested items loop over the list -->
     <div class="border rounded p-3 mb-3 bg-light"
          th:each="item, iterStat : *{requestedItemList}">
       <h6 class="mb-3">
         Requested item <span th:text="${iterStat.index + 1}"></span>
       </h6>
 
-      <!-- Food item -->
+      <!-- Food items -->
       <div class="mb-2">
         <label class="form-label">Food item</label>
         <select class="form-select"
@@ -78,7 +76,6 @@
         </div>
       </div>
 
-      <!-- Quantity -->
       <div class="mb-2">
         <label class="form-label">Quantity</label>
         <input type="number"
@@ -91,7 +88,7 @@
         </div>
       </div>
 
-      <!-- Unit (dropdown) -->
+<!--      dropdown-->
       <div class="mb-2">
         <label class="form-label">Unit</label>
         <select class="form-select"
@@ -109,7 +106,6 @@
       </div>
     </div>
 
-    <!-- CSRF -->
     <input type="hidden"
            th:name="${_csrf.parameterName}"
            th:value="${_csrf.token}"/>
@@ -117,12 +113,10 @@
     <!-- Submit / Cancel / add items-->
     <div class="d-flex justify-content-between mt-3">
 
-      <!-- Left: Add item -->
       <button type="submit"
               class="btn btn-dark"
               name="action"
               value="addItem">Add item</button>
-      <!-- Right: Cancel + Submit -->
       <div>
       <a th:href="@{/}" class="btn btn-outline-secondary me-2">Cancel</a>
       <button type="submit"

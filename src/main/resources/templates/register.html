@@ -19,7 +19,7 @@
         </div>
 
         <!-- GLOBAL ERRORS is for errors that do not belong to a single field, even if it is in a valid format
-        i will get my error because it checks my controllers binding results!!!! not only the bean validation
+        i will get my error because it checks my controllers binding results! not only the bean validation
         annotations as the for example th:errors="*{username}"-->
         <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
