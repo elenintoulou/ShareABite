@@ -25,7 +25,6 @@ public class RequestedItem extends AbstractEntity {
     @Column(nullable = false)
     private String unit;
 
-    //connecting with enums
     @Enumerated(EnumType.STRING)
     private FoodItems foodItems;
 

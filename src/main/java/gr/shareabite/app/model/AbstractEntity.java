@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@MappedSuperclass//is a class that will not be a table at the db!I made it only to be inherited!
+@MappedSuperclass//will not be a table at the db.I made it only to be inherited.
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
