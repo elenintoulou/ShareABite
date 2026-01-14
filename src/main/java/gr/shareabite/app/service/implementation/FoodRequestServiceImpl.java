@@ -76,7 +76,6 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
         return foodRequestMapper.mapToFoodRequest(foodRequest);
     }
 
-
     @Override
     @Transactional(rollbackOn = Exception.class)
     public void updateFoodRequestStatus(Long id, Status status, String username) {
@@ -146,5 +145,4 @@ public class FoodRequestServiceImpl implements IFoodRequestService {
         request.setStatus(Status.COMPLETED);
         foodRequestRepository.save(request);
     }
-
 }

@@ -29,14 +29,13 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh; /* full height of the viewport */
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .about-page .content-wrapper {
-  /* dark transparent container for readability */
   background-color: rgba(0, 0, 0, 0.5);
   padding: 53px;
   border-radius: 26px;

@@ -38,7 +38,6 @@ public class FoodRequestMapper {
     }
 
     public FoodRequestReadOnlyDTO mapToFoodRequest(FoodRequest foodRequest) {
-
         //mapping the list
         List<RequestedItemsReadOnlyDTO> requestedItemsReadOnlyDTOS =
                 foodRequest.getRequestedItemList()

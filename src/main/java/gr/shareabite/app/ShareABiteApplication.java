@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-//to enable automatic withhold of auditing(timestamps of insert or update)
+//to enable automatic auditing(timestamps of insert or update)
 @EnableJpaAuditing
 public class ShareABiteApplication {
 
