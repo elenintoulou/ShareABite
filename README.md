@@ -92,9 +92,6 @@ The application is intended for local execution for the purposes of the final pr
 - Build the application using Maven.
 - Run the Spring Boot application locally.
 
-In a production environment, the application could be run as a JAR file on a server with Java installed,
-using environment variables for database configuration.
-
 ### Note
 
 Open food requests are displayed based on the logged in user’s region.  
