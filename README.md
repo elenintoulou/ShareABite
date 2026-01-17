@@ -60,8 +60,8 @@ The technologies I use are the following:
 
 ### Database Setup
 Install and run MySQL Server locally.
-Create a MySQL database with the name: shareabiteappbd
-Configure the database connection in application.properties.
+Create a MySQL database with the name: `shareabiteappbd`.
+The database connection is configured via env variables referenced in application-dev.properties.
 Environment variables used:
 - MYSQL_USER
 - MYSQL_PASSWORD
@@ -86,9 +86,8 @@ The application is intended for local execution for the purposes of the final pr
 ### Local Deployment Process ###
 
 - Install and run MySQL Server locally.
-- Create the database schema (shareabiteappbd).
-- Set the required environment variables (MYSQL_USER, MYSQL_PASSWORD).
-- Configure the JDBC connection in application.properties.
+- Create a MySQL database named `shareabiteappbd`.
+- Set the required environment variables `MYSQL_USER, MYSQL_PASSWORD`.
 - Build the application using Maven.
 - Run the Spring Boot application locally.
 
